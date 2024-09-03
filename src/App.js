@@ -6,8 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
-import Login from './pages/Login'
-import Register from './pages/Register'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
 import UserList from './pages/Admin/User/UserList';
 import AdminLayout from './pages/Admin/AdminLayout';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';

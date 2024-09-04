@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Alert, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import './Login.css';
+import Logo from '../../assets/img/logo.png'
 
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../constants/apiConstant";
@@ -55,7 +56,7 @@ const Login = ({setNav}) => {
                     <h2 className="welcome-title">Hello, welcome to!</h2>
                     <p className="brand-name">
                     <img
-                src={`${process.env.PUBLIC_URL}/assets/img/logo.png`}  // Adjusted path
+                src={Logo}  // Adjusted path
                 width="60%"
                 height="40"
                 className="d-inline-block align-top"

@@ -13,6 +13,7 @@ import AdminLayout from './pages/Admin/AdminLayout';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import UserForm from './pages/Admin/User/UserForm';
 import { apiBaseImage } from './constants/apiConstant';
+import Logo from './assets/img/logo.png'
 
 const App=() =>{
 
@@ -55,7 +56,7 @@ const App=() =>{
           <div className="d-lg-none m-1">
             <Navbar.Brand as={Link} to='/' >
               <img
-                src={`${process.env.PUBLIC_URL}/assets/img/logo.png`}  // Adjusted path
+                src={`/assets/img/logo.png`}  // Adjusted path
                 width="100%"
                 height="30"
                 className="d-inline-block align-top"
@@ -80,7 +81,7 @@ const App=() =>{
             {/* Centered brand logo for large screens */}
             <Navbar.Brand as={Link} to='/' className="mx-auto d-none d-lg-block">
               <img
-                src={`${process.env.PUBLIC_URL}/assets/img/logo.png`}  // Adjusted path
+                src={Logo}  // Adjusted path
                 width="100%"
                 height="30"
                 className="d-inline-block align-top"

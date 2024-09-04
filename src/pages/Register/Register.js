@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Register.css";
 import { Alert, Container } from "react-bootstrap";
+import Logo from '../../assets/img/logo.png'
 
 const Register = () => {
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ const Register = () => {
                 <h2 className="welcome-title">Hello, welcome to!</h2>
                 <p className="brand-name">
                 <img
-                src={`${process.env.PUBLIC_URL}/assets/img/logo.png`}  // Adjusted path
+                src={Logo}  // Adjusted path
                 width="60%"
                 height="40"
                 className="d-inline-block align-top"

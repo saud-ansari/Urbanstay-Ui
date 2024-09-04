@@ -1,0 +1,38 @@
+/* Parent container for the entire poster section */
+.poster-container {
+    position: relative;
+    text-align: center;
+}
+
+/* Image container styling */
+.poster-img {
+    position: relative;
+    height: 500px; /* Adjust height as needed */
+    overflow: hidden;
+}
+
+/* Label on the image */
+.img-label {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.418);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Container for the card */
+.card-container {
+    position: absolute;
+    top: 100%; /* This positions the card 25% below the image height */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* Adjust card width as needed */
+}
+
+/* Custom card styling */
+.custom-card {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}

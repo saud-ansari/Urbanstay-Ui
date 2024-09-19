@@ -62,3 +62,7 @@
     opacity: 1;
   }
   
+  .brandlogo{
+    mix-blend-mode: color-burn;
+    
+  }

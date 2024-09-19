@@ -15,7 +15,27 @@ const Poster = () => {
       </div>
       <div className="card-container">
         <Card className="custom-card">
-          <Card.Body>Data</Card.Body>
+          <Card.Body>
+            <div className="search-bar">
+              <div className="search-field">
+                <label>Where</label>
+                <input type="text" placeholder="Search Destination" />
+              </div>
+              <div className="date-field">
+                <label>Check In</label>
+                <input type="date" />
+              </div>
+              <div className="date-field">
+                <label>Check Out</label>
+                <input type="date" />
+              </div>
+              <div className="guest-field">
+                <label>Guest</label>
+                <input type="text" placeholder="Add Guest" />
+              </div>
+              <button className="check-btn">Check Availability</button>
+            </div>
+          </Card.Body>
         </Card>
       </div>
     </div>

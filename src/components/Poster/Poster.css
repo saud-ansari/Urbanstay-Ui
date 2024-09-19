@@ -29,10 +29,39 @@
     top: 100%; /* This positions the card 25% below the image height */
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px; /* Adjust card width as needed */
+    /* Adjust card width as needed */
 }
 
 /* Custom card styling */
 .custom-card {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.search-bar {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    justify-content: center;
+  }
+  
+  .search-bar div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .search-bar input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .check-btn {
+    background-color: #8A5C8D;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }

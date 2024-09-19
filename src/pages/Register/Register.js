@@ -57,14 +57,15 @@ const Register = () => {
 
   return (
     <>
-     <Container className="container my-5 d-block justify-content-center">
+      <Container className="container my-5 d-block justify-content-center">
         <div className="card login-card">
           <div className="row g-0">
             {/* <!-- Left Side --> */}
             <div className="col-md-6 left-side d-flex flex-column justify-content-center align-items-center">
               <div className="text-center">
                 <h2 className="welcome-title">Hello, welcome to!</h2>
-                <p className="brand-name">
+                <h2 className="welcome-title">Urbanstay</h2>
+                {/* <p className="brand-name">
                 <img
                 src={Logo}  // Adjusted path
                 width="60%"
@@ -72,7 +73,7 @@ const Register = () => {
                 className="d-inline-block align-top"
                 alt="Company Logo"
               />
-                </p>
+                </p> */}
               </div>
             </div>
             {/* <!-- Right Side --> */}
@@ -86,7 +87,7 @@ const Register = () => {
                     </Alert>
                   )}
                   <div className="form-group mb-3">
-                  <label>First Name</label>
+                    <label>First Name</label>
                     <input
                       type="text"
                       className="form-control"
@@ -97,7 +98,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                  <label>Last Name</label>
+                    <label>Last Name</label>
                     <input
                       type="text"
                       className="form-control"
@@ -108,7 +109,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                  <label>Username</label>
+                    <label>Username</label>
                     <input
                       type="text"
                       className="form-control"
@@ -119,7 +120,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                  <label>Password</label>
+                    <label>Password</label>
                     <input
                       type="password"
                       className="form-control"
@@ -130,7 +131,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                  <label>Email</label>
+                    <label>Email</label>
                     <input
                       type="email"
                       className="form-control"
@@ -141,7 +142,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-4">
-                  <label>Mobile No</label>
+                    <label>Mobile No</label>
                     <input
                       type="text"
                       className="form-control"
@@ -158,7 +159,7 @@ const Register = () => {
                   </div>
                   <div className="text-center mt-3">
                     <Link to={`/login`} className="sign-in-link">
-                      Already have an account? Login 
+                      Already have an account? Login
                     </Link>
                   </div>
                 </form>

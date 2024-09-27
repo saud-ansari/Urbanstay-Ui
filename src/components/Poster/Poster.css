@@ -1,67 +1,128 @@
 /* Parent container for the entire poster section */
 .poster-container {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
 
 /* Image container styling */
 .poster-img {
-    position: relative;
-    height: 500px; /* Adjust height as needed */
-    overflow: hidden;
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  transition: opacity 0.5s ease-in-out;
 }
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
 
 /* Label on the image */
-.img-label {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    background-color: rgba(0, 0, 0, 0.418);
-    padding: 10px 20px;
-    border-radius: 5px;
+.img-label { 
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+
 }
 
-/* Container for the card */
+/* Title and subtitle responsiveness */
+.img-label .Carousel-title {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.img-label .Carousel-Subtitle {
+  font-size: 1.5rem;
+}
+
+
+/* Search-destination component CSS */
 .card-container {
-    position: absolute;
-    top: 100%; /* This positions the card 25% below the image height */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Adjust card width as needed */
+  width: 80%;
+  margin: 0 auto; /* Center align */
+  margin-top: -4%; /* Adjust for overlap with image */
 }
 
-/* Custom card styling */
 .custom-card {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .search-bar {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+.form-label{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold !important;
+}
+
+.btn-container {
+  cursor: pointer;
+}
+
+.check-btn{
+  background-color: #8A5C8D !important;
+  border: none !important;
+}
+
+.check-btn:hover {
+  background-color: peru !important;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+
+  .poster-img {
+    height: 300px;
     display: flex;
-    gap: 10px;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 8px;
     justify-content: center;
   }
-  
-  .search-bar div {
-    display: flex;
-    flex-direction: column;
+
+  .poster-img img{
+    width: auto !important;
   }
-  
-  .search-bar input {
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+
+  .input-field {
+    margin-top: 20px !important;
   }
-  
+
+  .img-label {
+    width: 400px;
+  }
+
+  .img-label h1 {
+    font-size: 2rem;
+  }
+
+  .img-label p {
+    font-size: 1rem;
+  }
+
+  .card-container {
+    width: 90%;
+    margin-top: -15%; /* Slightly reduce margin for smaller screens */
+  }
+
+  .search-bar {
+    padding: 10px;
+  }
+
   .check-btn {
-    background-color: #8A5C8D;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+    margin-top: 25px;
+    background-color: #8A5C8D !important;
+    border: white !important;
+    height: 60px;
   }
+
+}

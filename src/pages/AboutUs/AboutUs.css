@@ -1,0 +1,105 @@
+/* General styling for the about section */
+.about {
+    background-color: #f8f9fa;
+}
+
+/* Styling for the back banner image and text */
+.back {
+    position: relative;
+    text-align: center;
+}
+
+/* Make sure the h1 is absolutely positioned within the .back div */
+.back h1 {
+    position: absolute;  /* Change from relative to absolute */
+    top: 50%;  /* Position it 50% from the top */
+    left: 50%;  /* Position it 50% from the left */
+    transform: translate(-50%, -50%);  /* Move the text back to the center */
+    color: #fff;
+    font-size: 3rem;
+    font-weight: bold;
+    z-index: 2;  /* Ensure it sits above the image */
+}
+
+/* Styling the banner image */
+.back img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    filter: brightness(0.7);  /* Darken the image for better text contrast */
+    z-index: 1;
+}
+
+/* Styling for the content section */
+.about h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.conetnt-section{
+    font-size: 2.5rem;
+    color: #555 !important;
+}
+.subtitle {
+    font-size: 1.25rem;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.about p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Button styling */
+.btn2 {
+    background-color: #604362;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn2:hover {
+    background-color: #218838;
+}
+
+/* Responsive image */
+.about-img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Adjustments for mobile */
+@media (max-width: 768px) {
+    .back h1 {
+        font-size: 2rem;
+    }
+
+    .about h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .about p {
+        font-size: 0.95rem;
+    }
+
+    .btn2 {
+        width: 100%;
+    }
+
+    .about-img {
+        margin: 5% 0;
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+}
+}

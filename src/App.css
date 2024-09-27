@@ -5,8 +5,6 @@
     align-items: center;
 }
 
-
-
 /* Ensure the title doesn't overlap the city */
 .description h5 {
     margin: 0;
@@ -24,45 +22,77 @@
   }
   
   .btn-purple {
-    background-color: #8046d0e6; /* Sets the background color to purple */
+    background-color: #604362; /* Sets the background color to purple */
     border: none; /* Removes any default border */
     color: white; /* Sets the text color to white */
     padding: 5px 15px;
   }
   
   .btn-purple:hover {
-    background-color: darkviolet; /* Darkens the purple color on hover */
+    background-color: #604362; /* Darkens the purple color on hover */
   }
   
+  /* NavBar */
+  .navbar-brand img.logo-img {
+    height: 60px !important;
+    width: auto !important;
+  }
+   /*  
+.Nav-Text{
+  font-size: large !important;
+  font-weight: bold !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  color: #604362 !important;
+}
 
-  /* Carosel */
+.Nav-Text:hover{
+  color: #9905a7 !important;
+  border-bottom: 1px solid #604362;
+  transition: transform 0.5s ease-in-out;
+} */
 
-  .carousel-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
-    width: 500px; 
-    font-size: 12px;
-    box-shadow: 10px 10px;
-  }
-  
-  .slick-center .carousel-slide {
-    transform: scale(1.3);
-    width: 500px;
-    z-index: 1;
-  }
-  
-  .slick-slide {
-    opacity: 0.6;
-  }
-  
-  .slick-center {
-    opacity: 1;
-  }
-  
-  .brandlogo{
-    mix-blend-mode: color-burn;
-    
-  }
+.Nav-Text:hover {
+  color: #9905a7 !important;
+  border-bottom: 2px solid #604362;  /* Increase the thickness */
+  transition: all 0.3s ease;  /* Smooth transition */
+  transform: scale(1.05);  /* Slightly scale up the text on hover */
+}
+
+/* Active page link */
+.Nav-Text.active, .Nav-Text:focus {
+  color: #9905a7 !important;  /* Highlight the active page */
+  border-bottom: 2px solid #9905a7;  /* Add a border to the active page */
+  font-weight: bold !important;  /* Make the active page bolder */
+}
+/* Force the logo height using more specific selectors */
+.navbar-brand img.logo-img {
+  height: 60px !important;
+  width: auto !important; /* Maintain aspect ratio */
+  display: block !important; /* Ensure it's not constrained by other flex rules */
+}
+
+/* Add hover effect */
+.Nav-Text:hover {
+  color: #9905a7 !important;
+  border-bottom: 2px solid #604362;
+  transition: all 0.3s ease;
+  transform: scale(1.05);
+}
+
+/* Active page link */
+.Nav-Text.active, .Nav-Text:focus {
+  color: #9905a7 !important;
+  border-bottom: 2px solid #9905a7;
+  font-weight: bold !important;
+}
+
+/* Enhance active link */
+.Nav-Text.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background-color: #9905a7;
+}

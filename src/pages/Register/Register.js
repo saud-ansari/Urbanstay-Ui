@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Register.css";
 import { Alert, Container } from "react-bootstrap";
-import Logo from '../../assets/img/logo.png'
 
 const Register = () => {
   const navigate = useNavigate();

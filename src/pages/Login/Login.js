@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Alert, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import './Login.css';
-import Logo from '../../assets/img/logo.png'
 
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../constants/apiConstant";

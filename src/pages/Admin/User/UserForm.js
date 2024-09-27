@@ -5,6 +5,7 @@ import { apiBaseUrl } from '../../../constants/apiConstant';
 import { toast } from 'react-toastify';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Person, Plus, X } from 'react-bootstrap-icons';
+import './UserForm.css'
 
 const UserForm = () => {
   const navigate = useNavigate();

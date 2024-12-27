@@ -5,7 +5,7 @@ import { Col, Row, Button, Card, Container } from 'react-bootstrap';
 import './PopularProperties.css';
 import { GeoAltFill } from 'react-bootstrap-icons';
 
-const PopularProperties = () => {
+const PopularProperties = ({userIn}) => {
     const [properties, setProperties] = useState([]);
 
     useEffect(() => {
@@ -17,6 +17,13 @@ const PopularProperties = () => {
             .catch((err) => console.log(err));
     }, []);
 
+    const handleBook = () => {
+        if (userIn) {
+            alert("IN");
+        } else {
+            alert("NO");
+        }
+    };
     return (
         <Container className="popular-properties">
             <h2 className="text-center">Popular Properties</h2>
@@ -40,7 +47,7 @@ const PopularProperties = () => {
                                     </Col>
                                 </Row>
                                 <h5 className="price">₨ {property.pricePerNight}</h5>
-                                <Button variant="primary" className="book-btn">Book Now</Button>
+                                <Button variant="primary" className="book-btn" onClick={()=>handleBook(property.propertyId)}>Book Now</Button>
                             </Card.Body>
                         </Card>
 

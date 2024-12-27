@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Image, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Image, Nav, Navbar } from 'react-bootstrap';
 import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home/Home';
@@ -14,14 +14,33 @@ import UserForm from './pages/Admin/User/UserForm';
 import { apiBaseImage } from './constants/apiConstant';
 import Logo from './assets/img/Logo-icon.png'
 import './App.css';
+import Profile from './pages/Landlord/Profile/Profile';
+import LordPanel from './pages/Landlord/LandLordPanel/LordPanel';
+import Listing from './pages/Landlord/Listing/Listing';
+import Property from './pages/Landlord/AddProperty/Property';
+import TenantPanel from './pages/Tenants/TenantPanel';
+import TProfile from './pages/Tenants/TProfile';
 
 const App = () => {
 
   const [nav, setNav] = useState(false);
   const [imageProfile, setImageProfile] = useState(null);
+  const [navLord,setnavLord] = useState(false);
   const navigate = useNavigate();
+  const [id, setId] = useState(null);
+  const [Tnav, setTnav] = useState(false);
+  const [Anav,setAnav] = useState(false);
+  const [userIn,setuserIn] = useState(null);
+
 
   const user = localStorage.getItem('userInfo');
+
+  useEffect(() => {
+    const userinlocal = localStorage.getItem('userInfo')
+    if (userinlocal) {
+      setuserIn(userinlocal);
+    }
+  }, [userIn]);
 
   useEffect(() => {
     if (user) {
@@ -41,11 +60,37 @@ const App = () => {
     }
   }, [user]);
 
+
+  useEffect(()=>{
+    if(user){
+      const userInfo = JSON.parse(user);
+      const UserID = userInfo.userRole;
+      if(UserID === 'Landlords')
+        setnavLord(true);
+      else if(UserID === 'Tenants')
+        setTnav(true);
+      else if(UserID === 'Super Admin')
+        setAnav(true);
+    }
+  },[user])
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      const parsedInfo = JSON.parse(userInfo);
+      setId(parsedInfo.id); // Extract and store `id`
+    }
+  }, []);
+
+
   const handlelogout = () => {
     localStorage.removeItem('userInfo');
     setNav(false);
+    setnavLord(false);
     setImageProfile(null); // Clear profile image on logout
     navigate(`/home`);
+    setTnav(false)
+    setAnav(false)
   }
 
   return (
@@ -93,6 +138,35 @@ const App = () => {
             <Nav className="ms-auto">
 
               {
+                Anav &&
+                <>
+                <Nav.Link as={Link} to='/admin/dashboard' aria-label="admin" className='Nav-Text'>Manage Admin</Nav.Link>
+                </>
+              }
+
+            {
+                Tnav &&
+                <>
+                <Nav.Link as={Link} to='/tenants/profile' aria-label="tenants" className='Nav-Text'>Manage Tenant</Nav.Link>
+                </>
+                
+              }
+              {
+                navLord ? 
+                <>
+                <Button style={{backgroundColor:'#7952b3', color:'white', height:'39px'}}
+                onClick={()=>navigate(`landlord/AddProperty`)}>
+                  Add Listing
+                </Button>
+
+                <Nav.Link as={Link} to='/landlord/profile' aria-label="lords" className='Nav-Text'>Manage Landlord</Nav.Link>
+                </>
+                :
+                <>                
+                </>
+              }
+
+              {
                 nav ? (
                   <>
                     <Nav.Link aria-label="home" onClick={handlelogout} className='Nav-Text'>
@@ -117,11 +191,21 @@ const App = () => {
 
       <Routes>
         <Route index element={<Home />} />
-        <Route path='home' element={<Home />} />
+        <Route path='home' element={<Home userIn={userIn} />} />
         <Route path='about' element={<AboutUs />} />
         <Route path='contact' element={<ContactUs />} />
-        <Route path='login' element={<Login setNav={setNav} />} />
+        <Route path='login' element={<Login setNav={setNav} Tnav={Tnav} setTnav={setTnav} Anav={Anav} setAnav={setAnav}/>} />
         <Route path='register' element={<Register />} />
+        {/* Landlord */}
+        <Route path='landlord' element={<LordPanel/>}>
+          <Route path='Profile' element={<Profile/>}/>
+          <Route path='listing' element={<Listing id={id}/>}/>
+          <Route path='AddProperty/:id?' element={<Property iid={id} />}/>
+        </Route>
+        {/* Tenants */}
+        <Route path='tenants' element={<TenantPanel/>}>
+            <Route path='profile' element={<TProfile id={id}/>}/>
+        </Route>
         {/* Admin */}
         <Route path='admin' element={<AdminLayout />}>
           <Route index element={<Navigate to='dashboard' />} />

@@ -12,7 +12,6 @@ const Home = ({ userIn }) => {
       <Poster />
       <Container className="mt-5">
         <PopularProperties userIn={userIn}/>
-
         <ReviewSliderComp />
       </Container>
     </>

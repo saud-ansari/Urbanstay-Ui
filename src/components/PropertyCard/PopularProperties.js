@@ -5,19 +5,34 @@ import { Col, Row, Button, Card, Container, Modal } from "react-bootstrap";
 import "./PopularProperties.css";
 import { GeoAltFill } from "react-bootstrap-icons";
 
-const PopularProperties = ({ userIn }) => {
+const PopularProperties = ({Searchproperty }) => {
   const [properties, setProperties] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [propertModal, setPropertyModal] = useState(null);
 
+  // useEffect(() => {
+  //   console.log(Searchproperty);
+  //   axios
+  //     .get(`${apiBaseUrl}/Property`)
+  //     .then((res) => {
+  //       setProperties(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [Searchproperty]);
+
+
   useEffect(() => {
-    axios
+    if (Array.isArray(Searchproperty)) {
+      setProperties(Searchproperty);
+    }else{
+      axios
       .get(`${apiBaseUrl}/Property`)
       .then((res) => {
         setProperties(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+    }
+  },[Searchproperty]);
 
   const handleBook = (property) => {
     setModalShow(true);
@@ -25,10 +40,11 @@ const PopularProperties = ({ userIn }) => {
 
   };
   return (
+    
     <Container className="popular-properties">
       <h2 className="text-center">Popular Properties</h2>
       <Row className="property-cards mt-4">
-        {properties.slice(0, 8).map((property) => (
+        {properties.map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
             <Card className="property-card h-100">
               <Card.Img

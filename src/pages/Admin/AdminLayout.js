@@ -30,9 +30,6 @@ return (
                           <NavLink to='/admin/users' className='text-white nav-link'>Users</NavLink>
                       </li>
                       <li className='p-2'>
-                          <NavLink to='/admin/students' className='text-white nav-link'>Students</NavLink>
-                      </li>
-                      <li className='p-2'>
                           <NavLink to='/home' className='text-white nav-link' onClick={logout}>Logout</NavLink>
                       </li>
                   </ul>

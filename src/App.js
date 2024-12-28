@@ -20,17 +20,19 @@ import Listing from './pages/Landlord/Listing/Listing';
 import Property from './pages/Landlord/AddProperty/Property';
 import TenantPanel from './pages/Tenants/TenantPanel';
 import TProfile from './pages/Tenants/TProfile';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { BoxArrowRight } from 'react-bootstrap-icons';
 
 const App = () => {
 
   const [nav, setNav] = useState(false);
   const [imageProfile, setImageProfile] = useState(null);
-  const [navLord,setnavLord] = useState(false);
+  const [navLord, setnavLord] = useState(false);
   const navigate = useNavigate();
   const [id, setId] = useState(null);
   const [Tnav, setTnav] = useState(false);
-  const [Anav,setAnav] = useState(false);
-  const [userIn,setuserIn] = useState(null);
+  const [Anav, setAnav] = useState(false);
+  const [userIn, setuserIn] = useState(null);
 
 
   const user = localStorage.getItem('userInfo');
@@ -61,18 +63,18 @@ const App = () => {
   }, [user]);
 
 
-  useEffect(()=>{
-    if(user){
+  useEffect(() => {
+    if (user) {
       const userInfo = JSON.parse(user);
       const UserID = userInfo.userRole;
-      if(UserID === 'Landlords')
+      if (UserID === 'Landlords')
         setnavLord(true);
-      else if(UserID === 'Tenants')
+      else if (UserID === 'Tenants')
         setTnav(true);
-      else if(UserID === 'Super Admin')
+      else if (UserID === 'Super Admin')
         setAnav(true);
     }
-  },[user])
+  }, [user])
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -95,7 +97,7 @@ const App = () => {
 
   return (
     <>
-      <Navbar data-bs-theme="light" expand="lg">
+      <Navbar className='Navbar' expand="lg">
         <Container>
           {/* Centered brand logo for small screens */}
           <div className="d-lg-none m-1">
@@ -134,45 +136,69 @@ const App = () => {
               />
             </Navbar.Brand>
 
-            {/* Right-aligned links */}
+
+
             <Nav className="ms-auto">
-
-              {
-                Anav &&
-                <>
-                <Nav.Link as={Link} to='/admin/dashboard' aria-label="admin" className='Nav-Text'>Manage Admin</Nav.Link>
-                </>
-              }
-
-            {
-                Tnav &&
-                <>
-                <Nav.Link as={Link} to='/tenants/profile' aria-label="tenants" className='Nav-Text'>Manage Tenant</Nav.Link>
-                </>
-                
-              }
-              {
-                navLord ? 
-                <>
-                <Button style={{backgroundColor:'#7952b3', color:'white', height:'39px'}}
-                onClick={()=>navigate(`landlord/AddProperty`)}>
-                  Add Listing
-                </Button>
-
-                <Nav.Link as={Link} to='/landlord/profile' aria-label="lords" className='Nav-Text'>Manage Landlord</Nav.Link>
-                </>
-                :
-                <>                
-                </>
-              }
 
               {
                 nav ? (
                   <>
-                    <Nav.Link aria-label="home" onClick={handlelogout} className='Nav-Text'>
-                      Sign Out
-                    </Nav.Link>
-                    <Image src={`${apiBaseImage}ProfilePic/${imageProfile}`} width={50} height={50} />
+
+                    {
+                      navLord &&
+                      <Button style={{ backgroundColor: '#7952b3', color: 'white', height: '39px' ,margin: '0 20px'}}
+                        onClick={() => navigate(`landlord/AddProperty`)}>
+                        Add Listing
+                      </Button>
+                    } 
+
+                    <Dropdown>
+                      <Dropdown.Toggle variant="light" id="dropdown-basic">
+                        <Image src={`${apiBaseImage}ProfilePic/${imageProfile}`} width={50} height={50} />
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        {
+                          Anav &&
+                          <>
+                            <Dropdown.Item>
+                              <Nav.Link as={Link} to='/admin/dashboard' aria-label="admin" className='Nav-Text'>Manage Admin</Nav.Link>
+                            </Dropdown.Item>
+                          </>
+                        }
+
+                        {
+                          Tnav &&
+                          <>
+                            <Dropdown.Item>
+                              <Nav.Link as={Link} to='/tenants/profile' aria-label="tenants" className='Nav-Text'>Manage Tenant</Nav.Link>
+                            </Dropdown.Item>
+                          </>
+
+                        }
+
+                        {
+                          navLord &&
+                            <>                              
+                              <Dropdown.Item>
+                                <Nav.Link as={Link} to='/landlord/profile' aria-label="lords" className='Nav-Text'>Manage Landlord</Nav.Link>
+                              </Dropdown.Item>
+                            </>
+                           
+                        }
+                        <Dropdown.Divider />
+                        <Dropdown.Item >
+                          <Nav.Link aria-label="home" onClick={handlelogout} style={{ color:'red'}}>                            
+                          <BoxArrowRight color='red' size='20' style={{marginRight:'10px'}}/>
+                            Sign Out                            
+                          </Nav.Link>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+
+
+
+
                   </>
                 ) : (
                   <>
@@ -194,17 +220,17 @@ const App = () => {
         <Route path='home' element={<Home userIn={userIn} />} />
         <Route path='about' element={<AboutUs />} />
         <Route path='contact' element={<ContactUs />} />
-        <Route path='login' element={<Login setNav={setNav} Tnav={Tnav} setTnav={setTnav} Anav={Anav} setAnav={setAnav}/>} />
+        <Route path='login' element={<Login setNav={setNav} Tnav={Tnav} setTnav={setTnav} Anav={Anav} setAnav={setAnav} />} />
         <Route path='register' element={<Register />} />
         {/* Landlord */}
-        <Route path='landlord' element={<LordPanel/>}>
-          <Route path='Profile' element={<Profile/>}/>
-          <Route path='listing' element={<Listing id={id}/>}/>
-          <Route path='AddProperty/:id?' element={<Property iid={id} />}/>
+        <Route path='landlord' element={<LordPanel />}>
+          <Route path='Profile' element={<Profile />} />
+          <Route path='listing' element={<Listing id={id} />} />
+          <Route path='AddProperty/:id?' element={<Property iid={id} />} />
         </Route>
         {/* Tenants */}
-        <Route path='tenants' element={<TenantPanel/>}>
-            <Route path='profile' element={<TProfile id={id}/>}/>
+        <Route path='tenants' element={<TenantPanel />}>
+          <Route path='profile' element={<TProfile id={id} />} />
         </Route>
         {/* Admin */}
         <Route path='admin' element={<AdminLayout />}>

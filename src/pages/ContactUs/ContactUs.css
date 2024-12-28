@@ -1,0 +1,14 @@
+.Tiles-Card{
+    width: 250px !important;  /* 80% of the parent container's width */
+    height:170px !important;    
+    background: rgb(195, 177, 225);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+}
+
+.Tiles-Card-Body{
+    background: #AA98A9;
+    align-content: center !important;
+}
+
+
+

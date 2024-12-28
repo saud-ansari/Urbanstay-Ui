@@ -8,9 +8,9 @@ import Row from "react-bootstrap/Row";
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const TProfile = ({id}) => {
+const TProfile = () => {
 
-  const navigate = useNavigate();
+  const [id,setId] = useState();
   
   const [user,setUser] = useState({
     firstName : '',
@@ -19,21 +19,26 @@ const TProfile = ({id}) => {
     mobileNo : ''
   });
 
+
   const handleChange = (e) =>{
     const {name,value} = e.target;
     setUser({...user,[name]:value});
     console.log(user)
   }
 
-
     useEffect(()=>{
-      axios.get(`http://localhost:57614/api/User/${id}`)
-      .then((res)=>{
-        setUser(res.data);
-      })
-      .catch((err)=>{
-        console.log(err);
-      });
+      const getinfo = localStorage.getItem('userInfo');
+      if (getinfo){
+        const userInfo = JSON.parse(getinfo);
+        setId(userInfo.id);
+        axios.get(`http://localhost:57614/api/User/${userInfo.id}`)
+        .then((res)=>{
+          setUser(res.data);
+        })
+        .catch((err)=>{
+          console.log(err);
+        });
+      }
     },[id])
 
     const handleSubmit = () =>{

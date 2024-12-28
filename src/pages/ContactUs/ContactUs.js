@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Card, CardBody, Col, Container, Form, Row } from 'react-bootstrap'
-import { ChatLeftDotsFill, Envelope, EnvelopeFill, GeoAltFill, TelephoneFill } from 'react-bootstrap-icons';
+import { ChatLeftDotsFill, EnvelopeFill, GeoAltFill, TelephoneFill } from 'react-bootstrap-icons';
 import "./ContactUs.css";
 
 const ContactUs = () => {
@@ -21,7 +21,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <Container>
+      <Container className='my-5'>
         <Row>
           <Col sm={6}>
             <Row>

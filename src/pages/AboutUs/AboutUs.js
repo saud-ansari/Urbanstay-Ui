@@ -17,7 +17,7 @@ const AboutUs = () => {
         </div>
 
         {/* Content Section */}
-        <Container className="mt-5">
+        <Container className="my-5">
           <Row className="align-items-center">
             <Col lg={6} md={12}>
               <h1 className='conetnt-section'>Our Agency Story</h1>

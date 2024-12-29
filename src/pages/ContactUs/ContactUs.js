@@ -21,7 +21,7 @@ const ContactUs = () => {
 
   return (
     <>
-      <Container>
+      <Container className='my-5'>
         <Row>
           <Col sm={6}>
             <Row>

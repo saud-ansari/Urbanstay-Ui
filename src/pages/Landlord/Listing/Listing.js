@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 
 const Listing = ({id}) => {
 
-
   const [property,setProperty] = useState([]);
   const navigate = useNavigate();
   const [load,setLoad] = useState(false);

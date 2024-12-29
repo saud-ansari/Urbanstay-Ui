@@ -10,15 +10,6 @@ const PopularProperties = ({Searchproperty }) => {
   const [modalShow, setModalShow] = useState(false);
   const [propertModal, setPropertyModal] = useState(null);
 
-  // useEffect(() => {
-  //   console.log(Searchproperty);
-  //   axios
-  //     .get(`${apiBaseUrl}/Property`)
-  //     .then((res) => {
-  //       setProperties(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [Searchproperty]);
 
 
   useEffect(() => {

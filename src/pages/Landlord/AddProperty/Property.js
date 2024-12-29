@@ -7,14 +7,16 @@ import Row from "react-bootstrap/Row";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../../constants/apiConstant";
+import { Plus } from "react-bootstrap-icons";
 
 const Property = ({ iid }) => {
-
-  const {id} = useParams();
+  const [uploading, setUploading] = useState(false);
+  const [files, setFiles] = useState([]);
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [property, setProperty] = useState({
-    hostId: id ? '': iid,
+    hostId: id ? "" : iid,
     title: "",
     description: "",
     imagePath: "",
@@ -22,7 +24,7 @@ const Property = ({ iid }) => {
     imagePath3: "",
     imagePath4: "",
     imagePath5: "",
-    isActive: id ? '': 1,
+    isActive: id ? "" : 1,
     address: "",
     city: "",
     country: "",
@@ -36,7 +38,7 @@ const Property = ({ iid }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if((name === "pricePerNight" || name === "zipCode") && isNaN(value))
+    if ((name === "pricePerNight" || name === "zipCode") && isNaN(value))
       return;
 
     setProperty({
@@ -51,7 +53,7 @@ const Property = ({ iid }) => {
   };
 
   const handleSubmit = () => {
-    if(
+    if (
       property.title &&
       property.description &&
       property.imagePath &&
@@ -70,52 +72,100 @@ const Property = ({ iid }) => {
       property.houseRules &&
       property.instantBooking !== " " &&
       property.isActive !== " "
-      ){
-    if(id){
-      axios.put(`${apiBaseUrl}/Property/${id}`,property)
-      .then((res)=> {
-        if(res){
-          toast.success("Property updated successfully");
-          navigate(`/landlord/listing`)
-        }
-      })
-      .catch((err) => {console.log(err)}) 
+    ) {
+      if (id) {
+        axios
+          .put(`${apiBaseUrl}/Property/${id}`, property)
+          .then((res) => {
+            if (res) {
+              toast.success("Property updated successfully");
+              navigate(`/landlord/listing`);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        axios
+          .post(`http://localhost:57614/api/Property`, property)
+          .then((res) => {
+            if (res) {
+              navigate(`/landlord/listing`);
+              toast.success("Property added successfully");
+            }
+          })
+          .catch((err) => {
+            toast.error("Something went wrong");
+            if (err.response) {
+              console.log("Server Response:", err.response.data);
+            } else {
+              console.log("Error:", err.message);
+            }
+          });
+      }
+    } else {
+      toast.error("Please fill all the fields");
     }
-    else{
+  };
+
+  useEffect(() => {
+    if (id) {
       axios
-      .post(`http://localhost:57614/api/Property`, property)
+        .get(`${apiBaseUrl}/Property/ById/${id}`)
+        .then((res) => {
+          if (res.data) {
+            setProperty(...res.data);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [id]);
+
+  const handleUplaoad = (e) => {
+  setFiles([...e.target.files]);
+  };
+
+
+
+  const handlefileImage = () => {
+    if (files.length !== 5) {
+      toast.error("Please select exactly 5 images.");
+      return;
+    }
+  
+    setUploading(true);
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append("file", file);
+    });
+  
+    // Upload files
+    axios
+      .post("http://localhost:57614/api/Property/upload", formData)
       .then((res) => {
-        if(res){
-          navigate(`/landlord/listing`)
-          toast.success("Property added successfully");
+        if (res.data && res.data.imagePaths && res.data.imagePaths.length === 5) {
+          setProperty({
+            ...property,
+            imagePath: res.data.imagePaths[0],
+            imagePath2: res.data.imagePaths[1],
+            imagePath3: res.data.imagePaths[2],
+            imagePath4: res.data.imagePaths[3],
+            imagePath5: res.data.imagePaths[4],
+          });
+          toast.success("Images added successfully!");
+        } else {
+          toast.error("Failed to process uploaded images.");
         }
       })
       .catch((err) => {
-        toast.error("Something went wrong");
-        if (err.response) {
-          console.log("Server Response:", err.response.data);
-        } else {
-          console.log("Error:", err.message);
-        }
-      });
-    }
-  } else{
-    toast.error("Please fill all the fields");
-  }
-};
-
-  useEffect(() => {
-    if(id){
-      axios
-      .get(`${apiBaseUrl}/Property/ById/${id}`)
-      .then((res) => {
-        if (res.data) {
-          setProperty(...res.data);
-        }
+        console.error("Upload error:", err);
+        toast.error("Failed to upload images.");
       })
-      .catch((err) => console.log(err));
-    }
-  }, [id]);
+      .finally(() => {
+        setUploading(false);
+      });
+  };
+  
 
   return (
     <>
@@ -261,7 +311,12 @@ const Property = ({ iid }) => {
 
           <Form.Group as={Col} controlId="formGridZip">
             <Form.Label>Upload Images</Form.Label>
-            <Form.Control type="file" />
+            <Form.Control
+              type="file"
+              multiple
+              onChange={handleUplaoad}
+              disabled={uploading}
+            />
           </Form.Group>
         </Row>
 
@@ -313,16 +368,23 @@ const Property = ({ iid }) => {
         </Row>
 
         <Button
+          disabled={uploading}
           style={{
             backgroundColor: "#7952b3",
             color: "White",
             borderColor: "#7952b3",
-            marginBottom: "10px",
+            margin: "10px 10px",
           }}
           onClick={handleSubmit}
         >
           Submit
         </Button>
+        <Button disabled={uploading} style={{
+            backgroundColor: "#7952b3",
+            color: "White",
+            borderColor: "#7952b3",
+            margin: "10px 10px",
+          }} onClick={()=>handlefileImage()}> <Plus size={20}/>Upload Image</Button>
       </Form>
     </>
   );

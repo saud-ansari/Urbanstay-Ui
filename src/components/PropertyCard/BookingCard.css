@@ -1,0 +1,32 @@
+/* BookingCard.css */
+.booking-card {
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .night {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .rates {
+    font-size: 0.9rem;
+  }
+  
+  .reserve-btn {
+    background-color: #e84742;
+    border: none;
+  }
+  
+  .reserve-btn:hover {
+    background-color: #c33732;
+  }
+  

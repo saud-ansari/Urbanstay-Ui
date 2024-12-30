@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Image, Nav, Navbar } from 'react-bootstrap';
+import { Container, Image, Nav, Navbar } from 'react-bootstrap';
 import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home/Home';
@@ -22,6 +22,7 @@ import TenantPanel from './pages/Tenants/TenantPanel';
 import TProfile from './pages/Tenants/TProfile';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { BoxArrowRight } from 'react-bootstrap-icons';
+import Booking from './pages/Landlord/Booking/Booking';
 
 const App = () => {
 
@@ -82,7 +83,7 @@ const App = () => {
       const parsedInfo = JSON.parse(userInfo);
       setId(parsedInfo.id); // Extract and store `id`
     }
-  }, []);
+  }, [id]);
 
 
   const handlelogout = () => {
@@ -146,10 +147,10 @@ const App = () => {
 
                     {
                       navLord &&
-                      <Button style={{ backgroundColor: '#7952b3', color: 'white', height: '39px' ,margin: '0 20px'}}
+                      <p className='Navbar' style={{ cursor: 'pointer', margin:'15px 15px' }}
                         onClick={() => navigate(`landlord/AddProperty`)}>
                         Add Listing
-                      </Button>
+                      </p>
                     } 
 
                     <Dropdown>
@@ -195,10 +196,6 @@ const App = () => {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-
-
-
-
                   </>
                 ) : (
                   <>
@@ -227,6 +224,7 @@ const App = () => {
           <Route path='Profile' element={<Profile />} />
           <Route path='listing' element={<Listing id={id} />} />
           <Route path='AddProperty/:id?' element={<Property iid={id} />} />
+          <Route path='booking' element={<Booking id={id} />} />
         </Route>
         {/* Tenants */}
         <Route path='tenants' element={<TenantPanel />}>

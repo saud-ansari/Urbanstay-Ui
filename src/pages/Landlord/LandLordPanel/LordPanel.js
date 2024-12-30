@@ -42,15 +42,12 @@ const LordPanel = () => {
                 </li>
                 <li className="p-2">
                   <NavLink
-                    to="/landlord/Profile"
+                    to="/landlord/booking"
                     className="text-white nav-link"
                   >
                     Booking
                   </NavLink>
                 </li>
-                {/* <li className='p-2'>
-                          <NavLink to='/home' className='text-white nav-link' onClick={logout}>Logout</NavLink>
-                      </li> */}
               </ul>
             </aside>
           </Col>

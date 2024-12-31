@@ -1,0 +1,32 @@
+.custom-table tbody tr td{
+    color: rgb(109, 109, 109);
+}
+
+.custom-table tbody tr th{
+    font-weight: 800;
+}
+
+.section-header {
+    color: red !important;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .action-button {
+    background-color: transparent;
+    border: 1px solid;
+    padding: 10px 40px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .reject-button {
+    border-color: red;
+    color: red;
+  }
+  
+  .confirm-button {
+    border-color: green;
+    color: green;
+  }
+  

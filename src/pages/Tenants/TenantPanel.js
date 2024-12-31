@@ -36,10 +36,10 @@ const TenantPanel = () => {
                 </li>
                 <li className="p-2">
                   <NavLink
-                    to="/tenants/profile"
+                    to="/tenants/mybooking"
                     className="text-white nav-link"
                   >
-                    Booking
+                    My Booking
                   </NavLink>
                 </li>
               </ul>

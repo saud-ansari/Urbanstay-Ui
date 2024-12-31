@@ -8,15 +8,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../../constants/apiConstant";
 import { Plus } from "react-bootstrap-icons";
+import { UseLocalStorage } from "../../../constants/localstorage";
 
-const Property = ({ iid }) => {
+const Property = () => {
+  const [value ,setValue]  = UseLocalStorage("userInfo", '');
+  const iid = value?.id;
   const [uploading, setUploading] = useState(false);
   const [files, setFiles] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [property, setProperty] = useState({
-    hostId: id ? "" : iid,
+    hostId: id ? id : iid,
     title: "",
     description: "",
     imagePath: "",
@@ -24,7 +27,7 @@ const Property = ({ iid }) => {
     imagePath3: "",
     imagePath4: "",
     imagePath5: "",
-    isActive: id ? "" : 1,
+    isActive: id ? 1 : '',
     address: "",
     city: "",
     country: "",
@@ -50,6 +53,7 @@ const Property = ({ iid }) => {
           ? value === "true"
           : value,
     });
+    console.log(property);
   };
 
   const handleSubmit = () => {

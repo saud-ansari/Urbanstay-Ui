@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { apiBaseImage, apiBaseUrl } from "../../constants/apiConstant";
-import { Col, Row, Button, Card, Container, Modal, Form, } from "react-bootstrap";
+import { apiBaseImageProperty, apiBaseUrl } from "../../constants/apiConstant";
+import { Col, Row, Button, Card, Container, Modal, Form, Image, } from "react-bootstrap";
 import "./PopularProperties.css";
 import { GeoAltFill } from "react-bootstrap-icons";
 import "./BookingCard.css";
@@ -9,7 +9,7 @@ import "./BookingCard.css";
 const PopularProperties = ({ Searchproperty }) => {
   const [properties, setProperties] = useState([]);
   const [modalShow, setModalShow] = useState(false);
-  const [propertModal, setPropertyModal] = useState(null);
+  const [propertyModal, setPropertyModal] = useState(null);
 
 
 
@@ -57,7 +57,7 @@ const PopularProperties = ({ Searchproperty }) => {
             <Card className="property-card h-100">
               <Card.Img
                 variant="top"
-                src={`${apiBaseImage}/PropertyImg/${property.imagePath}`}
+                src={`${apiBaseImageProperty}${property.imagePath}`}
               />
               <Card.Body>
                 <Card.Title className="title-ellipsis">
@@ -104,11 +104,58 @@ const PopularProperties = ({ Searchproperty }) => {
         </Modal.Header>
         <Modal.Body>
           {
-            propertModal &&
+            propertyModal &&
             <>
               <Container>
-                <h3 className="title-ellipsis">{propertModal.title}</h3>
-                <Row>
+                <h3 className="title-ellipsis">{propertyModal.title}</h3>
+
+
+               <Row>
+                  <Col xs={12} lg={6}>
+                    <Image
+                      src={`${apiBaseImageProperty}${propertyModal.imagePath}`}
+                      alt=""
+                      className="main-image"
+                    />
+
+                  </Col>
+                  <Col xs={12} lg={6}>
+                    <Row> 
+                      <Col xs={6} lg={6} className="small-image-container">
+                        <Image
+                          src={`${apiBaseImageProperty}${propertyModal.imagePath2}`}
+                          alt=""
+                          className="small-image"
+                        />
+                      </Col>
+                      <Col xs={6} lg={6} className="small-image-container">
+                        <Image
+                          src={`${apiBaseImageProperty}${propertyModal.imagePath3}`}
+                          alt=""
+                          className="small-image"
+                        />
+                      </Col>
+                      <Col xs={6} lg={6} className="small-image-container">
+                        <Image
+                          src={`${apiBaseImageProperty}${propertyModal.imagePath4}`}
+                          alt=""
+                          className="small-image"
+                        />
+                      </Col>
+                      <Col xs={6} lg={6} className="small-image-container">
+                        <Image
+                          src={`${apiBaseImageProperty}${propertyModal.imagePath5}`}
+                          alt=""
+                          className="small-image"
+                        />
+                      </Col>
+                    </Row>                 
+                  </Col>
+                </Row> 
+
+
+
+                {/* <Row>
                   <Col className="bg-danger">1</Col>
                   <Col>
                     <Row>
@@ -120,13 +167,13 @@ const PopularProperties = ({ Searchproperty }) => {
                       <Col className="bg-warning">4</Col>
                     </Row>
                   </Col>
-                </Row>
+                </Row> */}
 
                 <Row className="my-3">
                   <Col xs={12} md={6} className="bg-secondary">
                     <Card className="booking-card mx-auto p-3">
                       <Card.Body>
-                        <h5 className="price">₹{propertModal.pricePerNight}<span className="night">/ night</span></h5>
+                        <h5 className="price">₹{propertyModal.pricePerNight}<span className="night">/ night</span></h5>
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
                           <Row className="mt-3">
                             <Col md={6} xs={12}>
@@ -166,9 +213,9 @@ const PopularProperties = ({ Searchproperty }) => {
 
               </Container>
 
-              {/* <img
-                  src={`${apiBaseImage}/PropertyImg/${propertModal.imagePath}`}
-                  alt=""
+                {/* <img
+                    src={`${apiBaseImage}/PropertyImg/${propertyModal.imagePath}`}
+                    alt=""
                   className="w-100"
                 /> */}
             </>

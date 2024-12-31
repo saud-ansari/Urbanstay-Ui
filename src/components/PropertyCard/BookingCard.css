@@ -29,4 +29,53 @@
   .reserve-btn:hover {
     background-color: #c33732;
   }
+
+  /* Card Image Css */
+  
+  .image-gallery-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gallery-card {
+    width: 100%;
+    max-width: 800px;
+    border: none;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .main-image {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .small-image-container {
+    padding: 5px;
+  }
+  
+  .small-image {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .small-image:hover {
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    .gallery-card {
+      max-width: 100%;
+    }
+  
+    .main-image {
+      border-bottom: none;
+    }
+  }
   

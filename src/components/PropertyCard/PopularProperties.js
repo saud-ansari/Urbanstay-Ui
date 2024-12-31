@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { apiBaseImage, apiBaseUrl } from "../../constants/apiConstant";
-import { Col, Row, Button, Card, Container, Modal, CardBody, Form, FormLabel } from "react-bootstrap";
+import { Col, Row, Button, Card, Container, Modal, Form, } from "react-bootstrap";
 import "./PopularProperties.css";
 import { GeoAltFill } from "react-bootstrap-icons";
 import "./BookingCard.css";
@@ -159,46 +159,7 @@ const PopularProperties = ({ Searchproperty }) => {
                           </Button>
                         </Form>
                       </Card.Body>
-                    </Card>
-
-
-                    <>
-                      {/* <Card>
-                      <CardBody>
-                        <Container>
-                          <p>{propertModal.pricePerNight}/Night</p>
-                          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                            <Row className="bg-warning">
-                              <Col className="bg-secondary ">
-                              1
-                                 <Form.Group as={Col} md="6" controlId="validationCustom01">
-                                 <FormLabel>Check IN</FormLabel>
-                                 <Form.Control
-                                    required
-                                    type="date"
-                                    placeholder="Date"
-                                  />
-                                    <Form.Control.Feedback type="invalid">Enter Check In Date</Form.Control.Feedback>
-                                </Form.Group> 
-                              </Col>
-                              <Col>
-                                 <Form.Group as={Col} md="6" controlId="validationCustom02">
-                                  <FormLabel>Check Out</FormLabel>
-                                  <Form.Control
-                                    required
-                                    type="date"
-                                    placeholder="Date"
-                                  />
-                                  <Form.Control.Feedback type="invalid">Enter Check Out Date</Form.Control.Feedback> 
-                                </Form.Group>
-                              </Col>
-                            </Row>
-                            <Button type="submit">Reserve</Button>
-                          </Form>
-                        </Container>
-                      </CardBody>
-                    </Card> */}
-                    </>
+                    </Card>                  
                   </Col>
                   <Col xs={12} md={6} >2</Col>
                 </Row>

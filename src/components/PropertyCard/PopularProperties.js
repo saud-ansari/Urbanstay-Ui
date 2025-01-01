@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { apiBaseImageProperty, apiBaseUrl } from "../../constants/apiConstant";
-import { Col, Row, Button, Card, Container, Modal, Form, Image, } from "react-bootstrap";
+import { Col, Row, Button, Card, Container, Modal, Form, Image, Table, } from "react-bootstrap";
 import "./PopularProperties.css";
 import { GeoAltFill } from "react-bootstrap-icons";
 import "./BookingCard.css";
@@ -95,7 +95,7 @@ const PopularProperties = ({ Searchproperty }) => {
       <Modal
         show={modalShow}
         onHide={handleClose}
-        size="lg"
+        fullscreen={true}
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -108,19 +108,17 @@ const PopularProperties = ({ Searchproperty }) => {
             <>
               <Container>
                 <h3 className="title-ellipsis">{propertyModal.title}</h3>
-
-
-               <Row>
-                  <Col xs={12} lg={6}>
-                    <Image
+                <Row>
+                  <Col sm={12} md={6} lg={6}>
+                    <img
                       src={`${apiBaseImageProperty}${propertyModal.imagePath}`}
                       alt=""
                       className="main-image"
                     />
                   </Col>
-                  
-                  <Col xs={12} lg={6}>
-                    <Row> 
+
+                  <Col xs={12} md={6} lg={6}>
+                    <Row>
                       <Col xs={6} lg={6} className="small-image-container">
                         <Image
                           src={`${apiBaseImageProperty}${propertyModal.imagePath2}`}
@@ -149,12 +147,57 @@ const PopularProperties = ({ Searchproperty }) => {
                           className="small-image"
                         />
                       </Col>
-                    </Row>                 
+                    </Row>
                   </Col>
-                </Row> 
+                </Row>
 
                 <Row className="my-3">
-                  <Col xs={12} md={6}>
+                  <Col xs={12} md={6}>                
+                    <Table className="sm ">
+                      <tbody>
+                      <tr>
+                          <td colSpan={2}>
+                            <div>
+                              <strong>Descriptioon : </strong>  <span className="text-muted">{propertyModal.description}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            <div>
+                              <strong>Address : </strong>  <span className="text-muted">{propertyModal.address}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div>
+                              <strong>City : </strong>  <span className="text-muted">{propertyModal.city}</span>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <strong>Code : </strong>  <span className="text-muted">{propertyModal.zipCode}</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div>
+                              <strong>Country : </strong>  <span className="text-muted">{propertyModal.country}</span>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <strong>Property Type : </strong>  <span className="text-muted">{propertyModal.propertyType}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Col>
+                  <Col xs={12} md={6} >
+
                     <Card className="booking-card mx-auto p-3">
                       <Card.Body>
                         <h5 className="price">₹{propertyModal.pricePerNight}<span className="night">/ night</span></h5>
@@ -163,7 +206,7 @@ const PopularProperties = ({ Searchproperty }) => {
                             <Col md={6} xs={12}>
                               <Form.Group controlId="checkin-date">
                                 <Form.Label>Check-in</Form.Label>
-                                <Form.Control required type="date"/>
+                                <Form.Control required type="date" />
                                 <Form.Control.Feedback type="invalid">Enter Check In Date</Form.Control.Feedback>
                               </Form.Group>
                             </Col>
@@ -171,7 +214,7 @@ const PopularProperties = ({ Searchproperty }) => {
                               <Form.Group controlId="checkout-date">
                                 <Form.Label>Check-out</Form.Label>
                                 <Form.Control required type="date" />
-                                <Form.Control.Feedback type="invalid">Enter Check Out Date</Form.Control.Feedback> 
+                                <Form.Control.Feedback type="invalid">Enter Check Out Date</Form.Control.Feedback>
                               </Form.Group>
                             </Col>
                           </Row>
@@ -179,7 +222,7 @@ const PopularProperties = ({ Searchproperty }) => {
                           <Form.Group className="mt-3" controlId="guests">
                             <Form.Label>Guests</Form.Label>
                             <Form.Control required type="number" placeholder="Number of Guests"></Form.Control>
-                            <Form.Control.Feedback type="invalid">Enter No. Guests</Form.Control.Feedback> 
+                            <Form.Control.Feedback type="invalid">Enter No. Guests</Form.Control.Feedback>
                           </Form.Group>
 
                           <div className="my-3 text-center text-muted">
@@ -190,18 +233,11 @@ const PopularProperties = ({ Searchproperty }) => {
                           </Button>
                         </Form>
                       </Card.Body>
-                    </Card>                  
+                    </Card>
                   </Col>
-                  <Col xs={12} md={6} >2</Col>
                 </Row>
 
               </Container>
-
-                {/* <img
-                    src={`${apiBaseImage}/PropertyImg/${propertyModal.imagePath}`}
-                    alt=""
-                  className="w-100"
-                /> */}
             </>
           }
 

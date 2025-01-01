@@ -117,8 +117,8 @@ const PopularProperties = ({ Searchproperty }) => {
                       alt=""
                       className="main-image"
                     />
-
                   </Col>
+                  
                   <Col xs={12} lg={6}>
                     <Row> 
                       <Col xs={6} lg={6} className="small-image-container">
@@ -153,24 +153,8 @@ const PopularProperties = ({ Searchproperty }) => {
                   </Col>
                 </Row> 
 
-
-
-                {/* <Row>
-                  <Col className="bg-danger">1</Col>
-                  <Col>
-                    <Row>
-                      <Col className="bg-warning">1</Col>
-                      <Col className="bg-secondary">2</Col>
-                    </Row>
-                    <Row>
-                      <Col className="bg-secondary">3</Col>
-                      <Col className="bg-warning">4</Col>
-                    </Row>
-                  </Col>
-                </Row> */}
-
                 <Row className="my-3">
-                  <Col xs={12} md={6} className="bg-secondary">
+                  <Col xs={12} md={6}>
                     <Card className="booking-card mx-auto p-3">
                       <Card.Body>
                         <h5 className="price">₹{propertyModal.pricePerNight}<span className="night">/ night</span></h5>

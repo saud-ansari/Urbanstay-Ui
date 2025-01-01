@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Image, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Image, Nav, Navbar } from 'react-bootstrap';
 import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home/Home';
@@ -147,10 +147,10 @@ const App = () => {
 
                     {
                       navLord &&
-                      <p className='Navbar' style={{ cursor: 'pointer', margin:'15px 15px' }}
+                      <Button className='NavbarButton' 
                         onClick={() => navigate(`landlord/AddProperty`)}>
                         Add Listing
-                      </p>
+                      </Button>
                     } 
 
                     <Dropdown>

@@ -67,7 +67,7 @@ const PopularProperties = ({ Searchproperty }) => {
                   <Col lg={6} xs={6} className="text-start">
                     <Card.Text>
                       <span className="text-muted">
-                        /{property.propertyType}
+                        {property.propertyType}
                       </span>
                     </Card.Text>
                   </Col>

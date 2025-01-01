@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { UseLocalStorage } from "../../../constants/localstorage";
 
 const Profile = () => {
 
@@ -16,7 +17,8 @@ const Profile = () => {
     mobileNo : ''
   });
 
-  const [id,setId] = useState();
+  const [value , setValue] = UseLocalStorage("userInfo", "");
+  const id = value?.id;
 
   const handleChange = (e) =>{
     const {name,value} = e.target;
@@ -25,18 +27,13 @@ const Profile = () => {
   }
 
   useEffect(()=>{
-    const getinfo = localStorage.getItem('userInfo');
-    if (getinfo){
-      const userInfo = JSON.parse(getinfo);
-      setId(userInfo.id);
-      axios.get(`http://localhost:57614/api/User/${userInfo.id}`)
+      axios.get(`http://localhost:57614/api/User/${id}`)
       .then((res)=>{
         setUser(res.data);
       })
       .catch((err)=>{
         console.log(err);
       });
-    }
   },[id])
 
   const handleSubmit = () =>{

@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { UseLocalStorage } from "../../../constants/localstorage";
 
 const LordPanel = () => {
   const navigate = useNavigate();
 
+  const [user, setUser] = UseLocalStorage("userInfo", "");
+
   useEffect(() => {
-    const userinfo = localStorage.getItem("userInfo");
-    if (userinfo) {
-      const user = JSON.parse(userinfo);
-      if (user.userRole !== "Landlords") {
-        navigate(`/home`);
-      }
+    setUser(user); //optional
+    if (user.userRole !== "Landlords") {
+      navigate(`/home`);
     }
-  });
+  }, []);
+
   return (
     <>
       <Container fluid>

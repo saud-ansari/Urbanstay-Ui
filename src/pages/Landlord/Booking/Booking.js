@@ -1,60 +1,61 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { apiBaseUrl } from "../../../constants/apiConstant";
-import { Accordion } from "react-bootstrap";
 import { format } from "date-fns";
+import { Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { UseLocalStorage } from "../../../constants/localstorage";
 
-const Booking = ({ id }) => {
+const Booking = () => {
   const [booking, setBooking] = useState([]);
+  const [value ,setValue] = UseLocalStorage("userInfo", '');
+  const navigate = useNavigate();
+  const id = value?.id;
 
   useEffect(() => {
-    axios
-      .get(`${apiBaseUrl}/Booking/${id}`)
-      .then((res) => {
-        setBooking(res.data);
-      })
-      .catch((err) => console.log(err));
+    if (id) { 
+      axios
+        .get(`${apiBaseUrl}/Booking/${id}`)
+        .then((res) => {
+          setBooking(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [id]);
+  
 
   return (
     <>
       <h2 className="text-center my-5">Booking Details</h2>
-      {booking &&
+      <Table striped bordered hover responsive='sm'>
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Name</th>
+            <th>Property Name</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        {booking &&
         booking.map((book, index) => (
-          <Accordion defaultActiveKey="0" className="mx-5" key={index}>
-            <Accordion.Item eventKey={index.toString()}>
-              <Accordion.Header>
-                {/* Flex container to space out the header content */}
-                <div className="d-flex w-100 justify-content-between align-items-center">
-                  {/* Property Name */}
-                  <h4>{book.propertyName}</h4>
-
-                  {/* Status Button */}
-                  <button
-                    style={{
-                      color: book.status === "pending" ? "red" : "green",
-                      border: "1px solid black",
-                      backgroundColor: "transparent",
-                      margin: "0 20px",
-                      padding: "10px 15px",
-                    }}
-                  >
-                    {book.status && book.status === "pending"
-                      ? "Not Confirmed"
-                      : "Confirmed"}
-                  </button>
-                </div>
-              </Accordion.Header>
-              <Accordion.Body>
-                <strong>Name : </strong> {book.guestName} <br />
-                <strong>In Date : </strong> {(book.checkInDate && format(book.checkInDate, "dd-MM-yyyy")) || "N/A"} <br />
-                <strong> Out Date : </strong> {(book.checkOutDate && format(book.checkOutDate,"dd-MM-yyyy")) || "N/A"} <br />
-                <strong>No Of Guests : </strong> {book.numberOfGuests} <br />
-                <strong>Amount : </strong> {book.totalPrice} <br />
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
+          <tr key={index}>
+            <td>##{book.bookingId}</td>
+            <td>{book.guestName}</td>
+            <td>{book.propertyName}</td>
+            <td>{(book.checkInDate && format(book.checkInDate, "dd-MM-yyyy")) || "N/A"}</td>
+            <td>{(book.checkOutDate && format(book.checkOutDate,"dd-MM-yyyy")) || "N/A"}</td>
+            <td>{book.totalPrice}</td>
+            <td style={{ color: book.status === 'Cancelled' || book.status === 'pending' ? 'red' : 'green'}}>{book.status}</td>
+            <td onClick={()=>navigate(`/landlord/bookingdetails/${book.bookingId}`)} style={{color:'blue', textDecoration:'underline',cursor:'pointer'}}>View</td>
+            </tr>
         ))}
+        </tbody>
+      </Table>      
     </>
   );
 };

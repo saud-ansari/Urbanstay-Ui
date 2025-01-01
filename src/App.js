@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-import { Button, Container, Image, Nav, Navbar } from 'react-bootstrap';
-import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import Home from './pages/Home/Home';
-import AboutUs from './pages/AboutUs/AboutUs';
-import ContactUs from './pages/ContactUs/ContactUs';
-import Login from './pages/Login/Login'
-import Register from './pages/Register/Register'
-import UserList from './pages/Admin/User/UserList';
-import AdminLayout from './pages/Admin/AdminLayout';
-import Dashboard from './pages/Admin/Dashboard/Dashboard';
-import UserForm from './pages/Admin/User/UserForm';
-import { apiBaseImage } from './constants/apiConstant';
-import Logo from './assets/img/Logo-icon.png'
-import './App.css';
-import Profile from './pages/Landlord/Profile/Profile';
-import LordPanel from './pages/Landlord/LandLordPanel/LordPanel';
-import Listing from './pages/Landlord/Listing/Listing';
-import Property from './pages/Landlord/AddProperty/Property';
-import TenantPanel from './pages/Tenants/TenantPanel';
-import TProfile from './pages/Tenants/TProfile';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { BoxArrowRight } from 'react-bootstrap-icons';
-import Booking from './pages/Landlord/Booking/Booking';
-=======
 import React, { useEffect, useState } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
 import { Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
@@ -52,7 +25,6 @@ import { BoxArrowRight } from "react-bootstrap-icons";
 import Booking from "./pages/Landlord/Booking/Booking";
 import BookingDetails from "./pages/Landlord/Booking/BookingDetails";
 import Mybooking from "./pages/Tenants/Mybooking";
->>>>>>> 17ab6d6fd1b1ce3ce934a5671fde32ee056e71ca
 
 const App = () => {
   const [nav, setNav] = useState(false);
@@ -208,15 +180,6 @@ const App = () => {
                       />
                     </Dropdown.Toggle>
 
-<<<<<<< HEAD
-                    {
-                      navLord &&
-                      <Button className='NavbarButton' 
-                        onClick={() => navigate(`landlord/AddProperty`)}>
-                        Add Listing
-                      </Button>
-                    } 
-=======
                     <Dropdown.Menu>
                       {Anav && (
                         <>
@@ -232,7 +195,6 @@ const App = () => {
                           </Dropdown.Item>
                         </>
                       )}
->>>>>>> 17ab6d6fd1b1ce3ce934a5671fde32ee056e71ca
 
                       {Tnav && (
                         <>

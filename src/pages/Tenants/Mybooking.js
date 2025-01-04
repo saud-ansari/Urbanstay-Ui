@@ -4,11 +4,17 @@ import { Col, Container, Image, Row, Table } from 'react-bootstrap'
 import { apiBaseImage, apiBaseUrl } from '../../constants/apiConstant';
 import { UseLocalStorage } from '../../constants/localstorage';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const Mybooking = () => {
     const [booking, setBooking] = useState([]);
     const [value , setValue] = UseLocalStorage('userInfo','');
     const id = value?.id;
+    const navigate = useNavigate();
+
+    const handlePayNow = () => {
+        navigate('/tenants/payment');
+    }
 
     useEffect(() => {
         axios.get(`${apiBaseUrl}/Booking/guest/${id}`)
@@ -39,7 +45,19 @@ return (
                             <Col md={4}>
                             <button style={{backgroundColor: book.status === 'pending' || book.status === 'Cancelled' ? 'red' : 'green',color:'white',padding: '10px 30px',fontWeight:'600',border:'none' }}>
                                 {book.status}
-                            </button>
+                            </button>   
+                                {
+                                    book.status === 'confirmed' ?
+                                    <>
+                                     <button onClick={()=> navigate(`/tenants/payment/${book.bookingId}`)}
+                                     style={{backgroundColor:'blue',color:'white',padding: '10px 30px',fontWeight:'600',border:'none',marginLeft:'10px' }}>
+                                        Pay Now
+                                     </button>
+                                    </> :
+                                    <>
+                                    
+                                    </>
+                                }
                             </Col>
                         </Row>
                         <hr />

@@ -25,6 +25,7 @@ import { BoxArrowRight } from "react-bootstrap-icons";
 import Booking from "./pages/Landlord/Booking/Booking";
 import BookingDetails from "./pages/Landlord/Booking/BookingDetails";
 import Mybooking from "./pages/Tenants/Mybooking";
+import PaymentDetails from "./components/Payment/paymentDetails";
 
 const App = () => {
   const [nav, setNav] = useState(false);
@@ -286,6 +287,8 @@ const App = () => {
           }
         />
         <Route path="register" element={<Register />} />
+        
+
         {/* Landlord */}
         <Route path="landlord" element={<LordPanel />}>
           <Route path="Profile" element={<Profile />} />
@@ -298,6 +301,7 @@ const App = () => {
         <Route path="tenants" element={<TenantPanel />}>
           <Route path="profile" element={<TProfile id={id} />} />
           <Route path="mybooking" element={<Mybooking />} />
+          <Route path="payment/:id?" element={<PaymentDetails />} />
         </Route>
         {/* Admin */}
         <Route path="admin" element={<AdminLayout />}>

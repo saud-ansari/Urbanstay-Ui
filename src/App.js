@@ -216,9 +216,9 @@ const App = () => {
             <Toast
               show={showToast}
               onClose={toggleShowToast}
-              position="bottom-center"
+              position="bottom-start"
               className="mt-3"
-              style={{ zIndex: 1050 }}
+              style={{ zIndex: 1050 ,position:'absolute',marginLeft:'-100px' }}
             >
               <Toast.Body>
                 {notiMssge ? notiMssge : "No message here"}

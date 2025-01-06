@@ -7,8 +7,10 @@ import { UseLocalStorage } from "../../constants/localstorage";
 import "./PopularProperties.css";
 import "./BookingCard.css";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const PopularProperties = ({ Searchproperty }) => {
+  const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [propertyModal, setPropertyModal] = useState(null);
@@ -32,14 +34,16 @@ const PopularProperties = ({ Searchproperty }) => {
 
   // Update booking state when propertyId, guestId, or hostId changes
   useEffect(() => {
-    setBooking((prevBooking) => ({
-      ...prevBooking,
-      propertyId: propertyModal?.propertyId,
-      guestId: id,
-      hostId: propertyModal?.hostId,
-      totalPrice : propertyModal?.pricePerNight
-    }));
-  }, [propertyId, GuestId, hostId, totalPrice]);
+    if (propertyModal) {
+      setBooking((prevBooking) => ({
+        ...prevBooking,
+        propertyId: propertyModal.propertyId, // Ensure the key matches your API response
+        hostId: propertyModal.hostId, // Ensure the key matches your API response
+        guestId: id,
+        totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
+      }));
+    }
+  }, [propertyModal, id]);  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,6 +87,7 @@ const PopularProperties = ({ Searchproperty }) => {
       axios
         .post(`${apiBaseUrl}/Booking`, booking)
         .then((res) => {
+          navigate(`/tenants/mybooking`);
           toast.success("Booking Successful");
           handleClose();
         })

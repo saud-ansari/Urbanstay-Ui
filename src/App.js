@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Image, Nav, Navbar } from "react-bootstrap";
+import { CloseButton, Container, Image, Nav, Navbar } from "react-bootstrap";
 import { Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Home from "./pages/Home/Home";
@@ -21,11 +21,12 @@ import Property from "./pages/Landlord/AddProperty/Property";
 import TenantPanel from "./pages/Tenants/TenantPanel";
 import TProfile from "./pages/Tenants/TProfile";
 import Dropdown from "react-bootstrap/Dropdown";
-import { BoxArrowRight } from "react-bootstrap-icons";
+import { BellFill, BoxArrowRight } from "react-bootstrap-icons";
 import Booking from "./pages/Landlord/Booking/Booking";
 import BookingDetails from "./pages/Landlord/Booking/BookingDetails";
 import Mybooking from "./pages/Tenants/Mybooking";
 import PaymentDetails from "./components/Payment/paymentDetails";
+import Toast from "react-bootstrap/Toast";
 
 const App = () => {
   const [nav, setNav] = useState(false);
@@ -34,8 +35,20 @@ const App = () => {
   const navigate = useNavigate();
   const [id, setId] = useState(null);
   const [Tnav, setTnav] = useState(false);
+  const [notification, setNotification] = useState(false);
+  const [notiMssge, setNotiMssge] = useState(null);
+  const [showToast, setShowToast] = useState(false);
   const [Anav, setAnav] = useState(false);
   const [userIn, setuserIn] = useState(null);
+  const [showA, setShowA] = useState(true);
+  const toggleShowA = () => setShowA(!showA);
+
+  const toggleShowToast = () => {
+    setShowToast(!showToast);
+    if (showToast) {
+      setNotification(false); // Clear red dot when toast is closed
+    }
+  };
 
   const user = localStorage.getItem("userInfo");
 
@@ -68,9 +81,13 @@ const App = () => {
     if (user) {
       const userInfo = JSON.parse(user);
       const UserID = userInfo.userRole;
-      if (UserID === "Landlords") setnavLord(true);
-      else if (UserID === "Tenants") setTnav(true);
-      else if (UserID === "Super Admin") setAnav(true);
+      if (UserID === "Landlords"){
+        setnavLord(true);
+      } 
+      else if (UserID === "Tenants") {
+        setTnav(true);
+        setNotification(true);
+      } else if (UserID === "Super Admin") setAnav(true);
     }
   }, [user]);
 
@@ -89,6 +106,7 @@ const App = () => {
     setImageProfile(null); // Clear profile image on logout
     navigate(`/home`);
     setTnav(false);
+    setNotification(false);
     setAnav(false);
   };
 
@@ -171,6 +189,45 @@ const App = () => {
                       Add Listing
                     </p>
                   )}
+
+{notification && (
+          <>
+            <div
+              style={{
+                position: "relative",
+                display: "inline-block",
+                cursor: "pointer",
+              }}
+              onClick={toggleShowToast}
+            >
+              <BellFill size={24} className="mx-5 my-3" />
+              <span
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  right: 35,
+                  width: 10,
+                  height: 10,
+                  backgroundColor: "red",
+                  borderRadius: "50%",
+                }}
+              />
+            </div>
+            <Toast
+              show={showToast}
+              onClose={toggleShowToast}
+              position="bottom-center"
+              className="mt-3"
+              style={{ zIndex: 1050 }}
+            >
+              <Toast.Body>
+                {notiMssge ? notiMssge : "No message here"}
+                <CloseButton onClick={toggleShowToast} className="float-end" />
+              </Toast.Body>
+            </Toast>
+          </>
+        )}
+
 
                   <Dropdown>
                     <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -287,7 +344,6 @@ const App = () => {
           }
         />
         <Route path="register" element={<Register />} />
-        
 
         {/* Landlord */}
         <Route path="landlord" element={<LordPanel />}>
@@ -295,7 +351,11 @@ const App = () => {
           <Route path="listing" element={<Listing />} />
           <Route path="AddProperty/:id?" element={<Property />} />
           <Route path="booking" element={<Booking />} />
-          <Route path="bookingdetails/:id?" element={<BookingDetails />} />
+          <Route
+            path="bookingdetails/:id?"
+            element={<BookingDetails  setNotiMssge={setNotiMssge}
+            setNotification={setNotification} />}
+          />
         </Route>
         {/* Tenants */}
         <Route path="tenants" element={<TenantPanel />}>

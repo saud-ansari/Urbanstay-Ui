@@ -52,8 +52,10 @@ const PaymentDetails = () => {
     else{
         axios.post(`${apiBaseUrl}/Payment`, data)
         .then((res) => {
-            navigate(`/tenants/mybooking`);
-            toast.success("Payment Successful");
+          if(res.data){
+            toast.success("Payment successful");
+            navigate("/payment-success");
+          }
         })
         .catch((error) => {
             console.error("Error making payment:", error);

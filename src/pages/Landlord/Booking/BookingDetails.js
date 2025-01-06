@@ -5,11 +5,11 @@ import { Container, Table } from "react-bootstrap";
 import { format } from "date-fns";
 import './Booking.css';
 import { toast } from "react-toastify";
-import { UseLocalStorage } from "../../../constants/localstorage";
+//import { UseLocalStorage } from "../../../constants/localstorage";
 import { useParams } from "react-router-dom";
 
 
-const BookingDetails = () => {
+const BookingDetails = ({setNotiMssge, setNotification}) => {
   const [booking, setBooking] = useState([]);
   // const [value, setValue] = UseLocalStorage("userInfo",'');
   // const id = value?.id;
@@ -35,21 +35,36 @@ const BookingDetails = () => {
     axios
       .post(`${apiBaseUrl}/Booking/${book.bookingId}/Confirmed`)
       .then((res) => {
-        toast.success("Booking Confirmed Successfully");
-        handleAction();
+        if (res.data && res.data.success) {
+          setNotiMssge("Your Booking is Confirmed");
+          setNotification(true);
+          toast.success("Booking Confirmed Successfully");
+          handleAction();
+        } else {
+          toast.error(res.data.message || "Something went wrong!");
+          console.error("API error:", res.data);
+        }
       })
-      .catch((err) => console.log(err));
-  }
-
+      .catch((err) => console.error("Error confirming booking:", err));
+  };
+  
   const handleCancel = (book) => {
     axios
       .post(`${apiBaseUrl}/Booking/${book.bookingId}/Cancelled`)
       .then((res) => {
-        toast.info("Booking Cancelled Successfully");
-        handleAction();
+        if (res.data && res.data.success) {
+          setNotiMssge("Your Booking is Cancelled");
+          setNotification(true);
+          toast.info("Booking Cancelled Successfully");
+          handleAction();
+        } else {
+          toast.error(res.data.message || "Something went wrong!");
+          console.error("API error:", res.data);
+        }
       })
-      .catch((err) => console.log(err));
-  }
+      .catch((err) => console.error("Error canceling booking:", err));
+  };
+  
 
   return (
     

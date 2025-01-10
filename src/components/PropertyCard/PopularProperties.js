@@ -14,13 +14,13 @@ const PopularProperties = ({ Searchproperty }) => {
   const [properties, setProperties] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [propertyModal, setPropertyModal] = useState(null);
-  const [propertyId, setPropertyId] = useState("");
-  const [GuestId, setGuestId] = useState("");
-  const [hostId, setHostId] = useState("");
-  const [totalPrice,setTotalPrice] = useState("");
+  // const [propertyId, setPropertyId] = useState("");
+  // const [GuestId, setGuestId] = useState("");
+  // const [hostId, setHostId] = useState("");
+  // const [totalPrice,setTotalPrice] = useState("");
 
-  const [value ,setValue] = UseSessionStorage("userInfo", "");
-  const id = value?.id;
+  const [userIn] = UseSessionStorage("userInfo", "");
+  const id = userIn?.id;
 
   const [booking, setBooking] = useState({
     propertyId: "",
@@ -81,8 +81,10 @@ const PopularProperties = ({ Searchproperty }) => {
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
-    if (form.checkValidity() === false) {
+    if (form.checkValidity() === false && !userIn) {
       event.stopPropagation();
+      toast.error("Login Required")
+      return;
     } else {
       axios
         .post(`${apiBaseUrl}/Booking`, booking)

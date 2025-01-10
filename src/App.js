@@ -42,8 +42,6 @@ const App = () => {
   const [showToast, setShowToast] = useState(false);
   const [Anav, setAnav] = useState(false);
   const [userIn, setuserIn] = useState(null);
-  // const [showA, setShowA] = useState(true);
-  // const toggleShowA = () => setShowA(!showA);
 
   const toggleShowToast = () => {
     setShowToast(!showToast);
@@ -55,18 +53,14 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      setuserIn(user);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (user) {
       try {
+        setuserIn(user);
         setNav(true);
         setImageProfile(user.profilePic || null);
+        setId(user.id);
       } catch (error) {
         console.error("Invalid JSON in userInfo:", error);
-        localStorage.removeItem("userInfo"); // Clear invalid data
+        sessionStorage.removeItem("userInfo"); // Clear invalid data
         setNav(false);
         setImageProfile(null);
       }
@@ -74,7 +68,7 @@ const App = () => {
       setNav(false);
       setImageProfile(null);
     }
-  }, [user]);
+  }, [user,id]);
 
   useEffect(() => {
     if (user) {
@@ -87,12 +81,6 @@ const App = () => {
       } else if (UserID === "Super Admin") setAnav(true);
     }
   }, [user]);
-
-  useEffect(() => {
-    if (user) {
-      setId(user.id); // Extract and store `id`
-    }
-  }, [id,user]);
 
   const handlelogout = () => {
     sessionStorage.removeItem("userInfo");

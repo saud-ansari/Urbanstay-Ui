@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../../constants/apiConstant";
 import { Plus } from "react-bootstrap-icons";
 import { UseSessionStorage } from "../../../constants/SessionStorage";
+import { Card, Container } from "react-bootstrap";
 
 const Property = () => {
   const [value ,setValue]  = UseSessionStorage("userInfo", '');
@@ -173,224 +174,301 @@ const Property = () => {
 
   return (
     <>
-      <Form>
-        <Row className="mb-3">
-          <Col xs={12} sm={12} md={6} lg={6}>
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              placeholder="Name the property"
-              name="title"
-              value={property.title}
-              onChange={handleChange}
-            />
-          </Col>
-          <Col xs={12} sm={12} md={6} lg={6}>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              placeholder="Enter Description"
-              name="description"
-              value={property.description}
-              onChange={handleChange}
-            />
-          </Col>
-        </Row>
 
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridEmail">
-            <Form.Label>Active</Form.Label>
-            <Form.Select
-              aria-label="Floating label select example"
-              name="isActive"
-              value={property.isActive}
-              onChange={handleChange}
-            >
-              <option>IS Active ?</option>
-              <option value={true}>Yes</option>
-              <option value={false}>No</option>
-            </Form.Select>
-          </Form.Group>
+      <Container className="my-4">
+        <Card>
+          <Card.Body>
+            <Card.Title>Add Property</Card.Title>
+            <Form>
+              <Row className="mb-3">
+                <Col xs={12} sm={12} md={6} lg={6}>
+                <Form.Group as={Col} controlId="formGridCity">
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    placeholder="Name the property"
+                    name="title"
+                    value={property.title}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                </Col>
+                <Col xs={12} sm={12} md={6} lg={6}>
+                <Form.Group as={Col} controlId="formGridCity">
+                  <Form.Label>Property Type</Form.Label>
+                  <Form.Control
+                    name="propertyType"
+                    value={property.propertyType}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col xs={12} sm={12} md={6} lg={6}>
+                <Form.Group className="mb-3" controlId="formGridAddress1">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Enter Description"
+                    name="description"
+                    value={property.description}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                </Col>              
+                <Col xs={12} sm={12} md={6} lg={6}>
+                  <Form.Group className="mb-3" controlId="formGridAddress1">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control
+                    as="textarea"
+                      placeholder="1234 Main St"
+                      name="address"
+                      value={property.address}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-          <Form.Group as={Col} controlId="formGridPassword">
-            <Form.Label>City</Form.Label>
-            <Form.Control
-              placeholder="Enter City"
-              name="city"
-              value={property.city}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Row>
+              <Row className="mb-3">
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>Country</Form.Label>
+                    <Form.Control
+                     placeholder="Enter Country"
+                      name="country"
+                      value={property.country}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>State</Form.Label>
+                    <Form.Control
+                     placeholder="Enter State"
+                      name="state"
+                      value={property.state}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control
+                      placeholder="Enter City"
+                      name="city"
+                      value={property.city}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>Zip</Form.Label>
+                    <Form.Control
+                      placeholder="Enter Zip Code"
+                      name="zipCode"
+                      value={property.zipCode}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>Price Per Night</Form.Label>
+                    <Form.Control
+                      placeholder="Enter Price Per Night"
+                      name="pricePerNight"
+                      value={property.pricePerNight}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>Available Dates</Form.Label>
+                    <Form.Control
+                      placeholder="Enter Available Dates"
+                      name="availabilityCalendar"
+                      value={property.availabilityCalendar}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridEmail">
+                    <Form.Label>Active</Form.Label>
+                    <Form.Select
+                      aria-label="Floating label select example"
+                      name="isActive"
+                      value={property.isActive}
+                      onChange={handleChange}
+                    >
+                      <option>IS Active ?</option>
+                      <option value={true}>Yes</option>
+                      <option value={false}>No</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>Instant Booking</Form.Label>
+                    <Form.Select
+                      aria-label="Floating label select example"
+                      name="instantBooking"
+                      value={property.instantBooking}
+                      onChange={handleChange}
+                    >
+                      <option>Choose ?</option>
+                      <option value={true}>Yes</option>
+                      <option value={false}>No</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-3">
+              <Col xs={12} sm={12} md={6} lg={6}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>House Rules</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      name="houseRules"
+                      value={property.houseRules}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
 
-        <Form.Group className="mb-3" controlId="formGridAddress1">
-          <Form.Label>Address</Form.Label>
-          <Form.Control
-            placeholder="1234 Main St"
-            name="address"
-            value={property.address}
-            onChange={handleChange}
-          />
-        </Form.Group>
+                <Col xs={12} sm={12} md={6} lg={6}>
+                  <Row className="mb-3">
+                    <Col>
+                      <Form.Group as={Col} controlId="formGridZip">
+                        <Form.Label>Upload Images</Form.Label>
+                        <div className="d-flex align-items-center">
+                          <Form.Control
+                            placeholder="choose 5 Image Files"
+                            type="file"
+                            multiple
+                            onChange={handleUplaoad}
+                            disabled={uploading}
+                            style={{ flex: 1 }}
+                          />
+                          <Button
+                            disabled={uploading}
+                            style={{
+                              backgroundColor: "#7952b3",
+                              color: "White",
+                              borderColor: "#7952b3",
+                              marginLeft: "10px",
+                            }}
+                            onClick={() => handlefileImage()}
+                          >
+                            <Plus size={20} /> Upload Image
+                          </Button>
+                        </div>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  {/* <Row>
+                    <Col xs={2} sm={2} md={2} lg={2}>
+                      <Form.Control
+                        placeholder="1 Image"
+                        name="imagePath"
+                        value={property.imagePath}
+                        onChange={handleChange}
+                      />
+                    </Col>
+                    <Col xs={2} sm={2} md={2} lg={2}>
+                      <Form.Control
+                        name="imagePath2"
+                        value={property.imagePath2}
+                        onChange={handleChange}
+                      />
+                    </Col>
+                    <Col xs={2} sm={2} md={2} lg={2}>
+                      <Form.Control
+                        name="imagePath3"
+                        value={property.imagePath3}
+                        onChange={handleChange}
+                      />
+                    </Col>
+                    <Col xs={2} sm={2} md={2} lg={2}>
+                      <Form.Control
+                        name="imagePath4"
+                        value={property.imagePath4}
+                        onChange={handleChange}
+                      />
+                    </Col>
+                    <Col xs={2} sm={2} md={2} lg={2}>
+                      <Form.Control
+                        name="imagePath5"
+                        value={property.imagePath5}
+                        onChange={handleChange}
+                      />
+                    </Col>
+                     <Form.Group as={Col} controlId="formGridCity">
+                      <Form.Label>ImagePath2</Form.Label>
+                      <Form.Control
+                        name="imagePath2"
+                        value={property.imagePath2}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Col>
+                      <Form.Group as={Col} controlId="formGridState">
+                        <Form.Label>ImagePath3</Form.Label>
+                        <Form.Control
+                          name="imagePath3"
+                          value={property.imagePath3}
+                          onChange={handleChange}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group as={Col} controlId="formGridZip">
+                        <Form.Label>ImagePath4</Form.Label>
+                        <Form.Control
+                          name="imagePath4"
+                          value={property.imagePath4}
+                          onChange={handleChange}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group as={Col} controlId="formGridZip">
+                        <Form.Label>ImagePath5</Form.Label>
+                        <Form.Control
+                          name="imagePath5"
+                          value={property.imagePath5}
+                          onChange={handleChange}
+                        />
+                      </Form.Group>
+                    </Col> 
+                  </Row> */}
+                </Col>
+              </Row>
+              <Button
+                disabled={uploading}
+                style={{
+                  backgroundColor: "#7952b3",
+                  color: "White",
+                  borderColor: "#7952b3", 
+                  width: "15%",                  
+                }}
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Container>
 
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>Country</Form.Label>
-            <Form.Control
-              name="country"
-              value={property.country}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>State</Form.Label>
-            <Form.Control
-              name="state"
-              value={property.state}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>Zip</Form.Label>
-            <Form.Control
-              name="zipCode"
-              value={property.zipCode}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Row>
-
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>Property Type</Form.Label>
-            <Form.Control
-              name="propertyType"
-              value={property.propertyType}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Price Per Night</Form.Label>
-            <Form.Control
-              name="pricePerNight"
-              value={property.pricePerNight}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>Available Dates</Form.Label>
-            <Form.Control
-              name="availabilityCalendar"
-              value={property.availabilityCalendar}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Row>
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>House Rules</Form.Label>
-            <Form.Control
-              name="houseRules"
-              value={property.houseRules}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Instant Booking</Form.Label>
-            <Form.Select
-              aria-label="Floating label select example"
-              name="instantBooking"
-              value={property.instantBooking}
-              onChange={handleChange}
-            >
-              <option>Choose ?</option>
-              <option value={true}>Yes</option>
-              <option value={false}>No</option>
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>Upload Images</Form.Label>
-            <Form.Control
-              type="file"
-              multiple
-              onChange={handleUplaoad}
-              disabled={uploading}
-            />
-          </Form.Group>
-        </Row>
-
-        <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>ImagePath1</Form.Label>
-            <Form.Control
-              name="imagePath"
-              value={property.imagePath}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>ImagePath2</Form.Label>
-            <Form.Control
-              name="imagePath2"
-              value={property.imagePath2}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>ImagePath3</Form.Label>
-            <Form.Control
-              name="imagePath3"
-              value={property.imagePath3}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>ImagePath4</Form.Label>
-            <Form.Control
-              name="imagePath4"
-              value={property.imagePath4}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>ImagePath5</Form.Label>
-            <Form.Control
-              name="imagePath5"
-              value={property.imagePath5}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Row>
-
-        <Button
-          disabled={uploading}
-          style={{
-            backgroundColor: "#7952b3",
-            color: "White",
-            borderColor: "#7952b3",
-            margin: "10px 10px",
-          }}
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-        <Button disabled={uploading} style={{
-            backgroundColor: "#7952b3",
-            color: "White",
-            borderColor: "#7952b3",
-            margin: "10px 10px",
-          }} onClick={()=>handlefileImage()}> <Plus size={20}/>Upload Image</Button>
-      </Form>
-    </>
+  </>
   );
 };
 

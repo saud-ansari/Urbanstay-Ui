@@ -6,7 +6,7 @@ import "./Login.css";
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../constants/apiConstant";
 
-const Login = ({ setNav , setTnav, setAnav }) => {
+const Login = ({ setNav , setTnav, setAnav , setnavLord, setIsBell}) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [message, setMessage] = useState();
   const navigate = useNavigate();
@@ -34,9 +34,12 @@ const Login = ({ setNav , setTnav, setAnav }) => {
               setAnav(true);
               navigate(`/admin/dashboard`);
             } else if (res.data.userRole === "Landlords") {
+              setnavLord(true);
+              setIsBell(false);
               navigate(`/landlord/profile`);
             } else if(res.data.userRole === "Tenants"){
               setTnav(true);
+              setIsBell(true);
               navigate(`/tenants/profile`);
             }
             else {

@@ -29,17 +29,17 @@ const BookingDetails = ({setNotiMssge, setNotification}) => {
         setBooking(res.data);
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   const handleConfirm = (book) => {
     axios
       .post(`${apiBaseUrl}/Booking/${book.bookingId}/Confirmed`)
       .then((res) => {
-        if (res.data && res.data.success) {
-          setNotiMssge("Your Booking is Confirmed");
-          setNotification(true);
+        if (res.data) {
+          setNotiMssge(res.data);
           toast.success("Booking Confirmed Successfully");
           handleAction();
+          setNotification(true);
         } else {
           toast.error(res.data.message || "Something went wrong!");
           console.error("API error:", res.data);
@@ -52,11 +52,11 @@ const BookingDetails = ({setNotiMssge, setNotification}) => {
     axios
       .post(`${apiBaseUrl}/Booking/${book.bookingId}/Cancelled`)
       .then((res) => {
-        if (res.data && res.data.success) {
-          setNotiMssge("Your Booking is Cancelled");
-          setNotification(true);
+        if (res.data) {
+          setNotiMssge(res.data);
           toast.info("Booking Cancelled Successfully");
           handleAction();
+          setNotification(true);
         } else {
           toast.error(res.data.message || "Something went wrong!");
           console.error("API error:", res.data);

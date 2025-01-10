@@ -27,44 +27,44 @@ import BookingDetails from "./pages/Landlord/Booking/BookingDetails";
 import Mybooking from "./pages/Tenants/Mybooking";
 import PaymentDetails from "./components/Payment/paymentDetails";
 import Toast from "react-bootstrap/Toast";
+import { UseLocalStorage } from "./constants/localstorage";
 
 const App = () => {
+  const [user] = UseLocalStorage("userInfo",'');
   const [nav, setNav] = useState(false);
   const [imageProfile, setImageProfile] = useState(null);
   const [navLord, setnavLord] = useState(false);
   const navigate = useNavigate();
   const [id, setId] = useState(null);
   const [Tnav, setTnav] = useState(false);
+  const [isBell,setIsBell] = useState(false);
   const [notification, setNotification] = useState(false);
   const [notiMssge, setNotiMssge] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [Anav, setAnav] = useState(false);
   const [userIn, setuserIn] = useState(null);
-  const [showA, setShowA] = useState(true);
-  const toggleShowA = () => setShowA(!showA);
+  // const [showA, setShowA] = useState(true);
+  // const toggleShowA = () => setShowA(!showA);
 
   const toggleShowToast = () => {
     setShowToast(!showToast);
-    if (showToast) {
-      setNotification(false); // Clear red dot when toast is closed
+      if (showToast) {
+      setNotification(false);
     }
   };
-
-  const user = localStorage.getItem("userInfo");
+  
 
   useEffect(() => {
-    const userinlocal = localStorage.getItem("userInfo");
-    if (userinlocal) {
-      setuserIn(userinlocal);
+    if (user) {
+      setuserIn(user);
     }
-  }, [userIn]);
+  }, [user]);
 
   useEffect(() => {
     if (user) {
       try {
-        const userInfo = JSON.parse(user); // Safely parse user data
         setNav(true);
-        setImageProfile(userInfo.profilePic || null);
+        setImageProfile(user.profilePic || null);
       } catch (error) {
         console.error("Invalid JSON in userInfo:", error);
         localStorage.removeItem("userInfo"); // Clear invalid data
@@ -79,25 +79,22 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      const userInfo = JSON.parse(user);
-      const UserID = userInfo.userRole;
-      if (UserID === "Landlords"){
+      const UserID = user.userRole;
+      if (UserID === "Landlords") {
         setnavLord(true);
-      } 
-      else if (UserID === "Tenants") {
+        setNotification(false);
+      } else if (UserID === "Tenants") {
         setTnav(true);
-        setNotification(true);
+        setIsBell(true);
       } else if (UserID === "Super Admin") setAnav(true);
     }
   }, [user]);
 
   useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      const parsedInfo = JSON.parse(userInfo);
-      setId(parsedInfo.id); // Extract and store `id`
+    if (user) {
+      setId(user.id); // Extract and store `id`
     }
-  }, [id]);
+  }, [id,user]);
 
   const handlelogout = () => {
     localStorage.removeItem("userInfo");
@@ -190,44 +187,52 @@ const App = () => {
                     </p>
                   )}
 
-{notification && (
-          <>
-            <div
-              style={{
-                position: "relative",
-                display: "inline-block",
-                cursor: "pointer",
-              }}
-              onClick={toggleShowToast}
-            >
-              <BellFill size={24} className="mx-5 my-3" />
-              <span
-                style={{
-                  position: "absolute",
-                  top: 10,
-                  right: 35,
-                  width: 10,
-                  height: 10,
-                  backgroundColor: "red",
-                  borderRadius: "50%",
-                }}
-              />
-            </div>
-            <Toast
-              show={showToast}
-              onClose={toggleShowToast}
-              position="bottom-start"
-              className="mt-3"
-              style={{ zIndex: 1050 ,position:'absolute',marginLeft:'-100px' }}
-            >
-              <Toast.Body>
-                {notiMssge ? notiMssge : "No message here"}
-                <CloseButton onClick={toggleShowToast} className="float-end" />
-              </Toast.Body>
-            </Toast>
-          </>
-        )}
-
+                  {isBell && (
+                    <>
+                      <div
+                        style={{
+                          position: "relative",
+                          display: "inline-block",
+                          cursor: "pointer",
+                        }}
+                        onClick={toggleShowToast}
+                      >
+                        <BellFill size={24} className="mx-5 my-3" />
+                        {notification && (
+                          <span
+                          style={{
+                            position: "absolute",
+                            top: 10,
+                            right: 35,
+                            width: 10,
+                            height: 10,
+                            backgroundColor: "red",
+                            borderRadius: "50%",
+                          }}
+                        />
+                        )}
+                      </div>
+                      <Toast
+                        show={showToast}
+                        onClose={toggleShowToast}
+                        position="bottom-start"
+                        className="mt-3"
+                        style={{
+                          zIndex: 1050,
+                          position: "absolute",
+                          marginLeft: "-100px",
+                        }}
+                      >
+                        <Toast.Body>
+                          {notiMssge ? notiMssge : "No message here"}
+                          <CloseButton
+                            onClick={toggleShowToast}
+                            className="float-end"
+                          />
+                        </Toast.Body>
+                      </Toast>
+                    </>
+                  )}
 
                   <Dropdown>
                     <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -336,10 +341,12 @@ const App = () => {
           element={
             <Login
               setNav={setNav}
-              Tnav={Tnav}
+              // Tnav={Tnav}
               setTnav={setTnav}
-              Anav={Anav}
+              // Anav={Anav}
               setAnav={setAnav}
+              setnavLord={setnavLord}
+              setIsBell={setIsBell}
             />
           }
         />
@@ -353,8 +360,12 @@ const App = () => {
           <Route path="booking" element={<Booking />} />
           <Route
             path="bookingdetails/:id?"
-            element={<BookingDetails  setNotiMssge={setNotiMssge}
-            setNotification={setNotification} />}
+            element={
+              <BookingDetails
+                setNotiMssge={setNotiMssge}
+                setNotification={setNotification}
+              />
+            }
           />
         </Route>
         {/* Tenants */}

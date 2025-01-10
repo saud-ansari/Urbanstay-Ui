@@ -8,10 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../../constants/apiConstant";
 import { Plus } from "react-bootstrap-icons";
-import { UseLocalStorage } from "../../../constants/localstorage";
+import { UseSessionStorage } from "../../../constants/SessionStorage";
 
 const Property = () => {
-  const [value ,setValue]  = UseLocalStorage("userInfo", '');
+  const [value ,setValue]  = UseSessionStorage("userInfo", '');
   const iid = value?.id;
   const [uploading, setUploading] = useState(false);
   const [files, setFiles] = useState([]);

@@ -27,10 +27,10 @@ import BookingDetails from "./pages/Landlord/Booking/BookingDetails";
 import Mybooking from "./pages/Tenants/Mybooking";
 import PaymentDetails from "./components/Payment/paymentDetails";
 import Toast from "react-bootstrap/Toast";
-import { UseLocalStorage } from "./constants/localstorage";
+import { UseSessionStorage } from "./constants/SessionStorage";
 
 const App = () => {
-  const [user] = UseLocalStorage("userInfo",'');
+  const [user] = UseSessionStorage("userInfo",'');
   const [nav, setNav] = useState(false);
   const [imageProfile, setImageProfile] = useState(null);
   const [navLord, setnavLord] = useState(false);
@@ -95,7 +95,7 @@ const App = () => {
   }, [id,user]);
 
   const handlelogout = () => {
-    localStorage.removeItem("userInfo");
+    sessionStorage.removeItem("userInfo");
     setNav(false);
     setnavLord(false);
     setImageProfile(null); // Clear profile image on logout

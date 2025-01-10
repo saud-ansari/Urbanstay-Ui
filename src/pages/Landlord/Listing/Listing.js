@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, InputGroup, Pagination, Row, Table } from "react-bootstrap";
 import { apiBaseUrl } from "../../../constants/apiConstant";
-import { UseLocalStorage } from "../../../constants/localstorage";
+import { UseSessionStorage } from "../../../constants/SessionStorage";
 import { format } from "date-fns";
 import { Pencil, Plus, Trash } from "react-bootstrap-icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 const Listing = () => {
   const [properties, setProperties] = useState([]);  
   const [searchTerm, setSearchTerm] = useState("");
-  const [value, setValue] = UseLocalStorage("userInfo", "");
+  const [value, setValue] = UseSessionStorage("userInfo", "");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const id = value?.id;

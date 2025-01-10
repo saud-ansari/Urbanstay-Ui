@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Image, Row, Table } from "react-bootstrap";
 import { apiBaseImage, apiBaseUrl } from "../../constants/apiConstant";
-import { UseLocalStorage } from "../../constants/localstorage";
+import { UseSessionStorage } from "../../constants/SessionStorage";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 
 const Mybooking = () => {
   const [booking, setBooking] = useState([]);
-  const [value, setValue] = UseLocalStorage("userInfo", "");
+  const [value, setValue] = UseSessionStorage("userInfo", "");
   const id = value?.id;
   const navigate = useNavigate();
 

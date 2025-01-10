@@ -29,7 +29,7 @@ const Login = ({ setNav , setTnav, setAnav , setnavLord,setIsBell}) => {
         .then((res) => {
           if (res.data) {
             setNav(true);
-            localStorage.setItem("userInfo", JSON.stringify(res.data));
+            sessionStorage.setItem("userInfo", JSON.stringify(res.data));
             if (res.data.userRole === "Super Admin") {
               setAnav(true);
               navigate(`/admin/dashboard`);

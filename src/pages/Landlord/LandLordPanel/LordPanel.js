@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { UseLocalStorage } from "../../../constants/localstorage";
+import { UseSessionStorage } from "../../../constants/SessionStorage";
 
 const LordPanel = () => {
   const navigate = useNavigate();
 
-  const [user, setUser] = UseLocalStorage("userInfo", "");
+  const [user, setUser] = UseSessionStorage("userInfo", "");
 
   useEffect(() => {
     setUser(user); //optional

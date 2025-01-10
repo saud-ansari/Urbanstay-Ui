@@ -7,10 +7,12 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { UseSessionStorage } from '../../constants/SessionStorage';
 
 const TProfile = () => {
 
   const [id,setId] = useState();
+  const [userIn,setUserIn] = UseSessionStorage('userInfo','');
   
   const [user,setUser] = useState({
     firstName : '',
@@ -27,11 +29,9 @@ const TProfile = () => {
   }
 
     useEffect(()=>{
-      const getinfo = localStorage.getItem('userInfo');
-      if (getinfo){
-        const userInfo = JSON.parse(getinfo);
-        setId(userInfo.id);
-        axios.get(`http://localhost:57614/api/User/${userInfo.id}`)
+      if (userIn){
+        setId(userIn.id);
+        axios.get(`http://localhost:57614/api/User/${userIn.id}`)
         .then((res)=>{
           setUser(res.data);
         })

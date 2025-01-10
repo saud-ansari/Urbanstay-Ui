@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { UseSessionStorage } from '../../constants/SessionStorage';
 
 
 const AdminLayout = () => {
   const navigate = useNavigate();
+  const [user] = UseSessionStorage('userInfo','')
+
 
   useEffect(() => {
-      if (!localStorage.getItem("userInfo")) {
+      if (!user) {
           navigate("/login?from=admin");
       }
   },[navigate]);
-
-  const logout = () => {
-      localStorage.removeItem("userInfo");
-      localStorage.clear();
-  }
 
 return (
   <Container fluid>
@@ -28,9 +26,6 @@ return (
                       </li>
                       <li className='p-2'>
                           <NavLink to='/admin/users' className='text-white nav-link'>Users</NavLink>
-                      </li>
-                      <li className='p-2'>
-                          <NavLink to='/home' className='text-white nav-link' onClick={logout}>Logout</NavLink>
                       </li>
                   </ul>
               </aside>

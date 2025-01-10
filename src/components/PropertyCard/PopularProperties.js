@@ -3,7 +3,7 @@ import axios from "axios";
 import { apiBaseImageProperty, apiBaseUrl } from "../../constants/apiConstant";
 import { Col, Row, Button, Card, Container, Modal, Form, Image, Table } from "react-bootstrap";
 import { GeoAltFill } from "react-bootstrap-icons";
-import { UseLocalStorage } from "../../constants/localstorage";
+import { UseSessionStorage } from "../../constants/SessionStorage";
 import "./PopularProperties.css";
 import "./BookingCard.css";
 import { toast } from "react-toastify";
@@ -19,7 +19,7 @@ const PopularProperties = ({ Searchproperty }) => {
   const [hostId, setHostId] = useState("");
   const [totalPrice,setTotalPrice] = useState("");
 
-  const [value ,setValue] = UseLocalStorage("userInfo", "");
+  const [value ,setValue] = UseSessionStorage("userInfo", "");
   const id = value?.id;
 
   const [booking, setBooking] = useState({

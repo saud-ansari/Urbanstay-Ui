@@ -4,11 +4,11 @@ import { apiBaseUrl } from "../../../constants/apiConstant";
 import { format } from "date-fns";
 import { Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { UseLocalStorage } from "../../../constants/localstorage";
+import { UseSessionStorage } from "../../../constants/SessionStorage";
 
 const Booking = () => {
   const [booking, setBooking] = useState([]);
-  const [value ,setValue] = UseLocalStorage("userInfo", '');
+  const [value ,setValue] = UseSessionStorage("userInfo", '');
   const navigate = useNavigate();
   const id = value?.id;
 

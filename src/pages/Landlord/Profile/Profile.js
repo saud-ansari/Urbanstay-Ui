@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { UseLocalStorage } from "../../../constants/localstorage";
+import { UseSessionStorage } from "../../../constants/SessionStorage";
 
 const Profile = () => {
 
@@ -17,7 +17,7 @@ const Profile = () => {
     mobileNo : ''
   });
 
-  const [value , setValue] = UseLocalStorage("userInfo", "");
+  const [value , setValue] = UseSessionStorage("userInfo", "");
   const id = value?.id;
 
   const handleChange = (e) =>{

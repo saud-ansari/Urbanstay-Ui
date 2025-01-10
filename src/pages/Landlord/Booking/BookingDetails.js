@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 
-const BookingDetails = ({setNotiMssge, setNotification}) => {
+const BookingDetails = ({setNotiMssge}) => {
   const [booking, setBooking] = useState([]);
   // const [value, setValue] = UseLocalStorage("userInfo",'');
   // const id = value?.id;
@@ -28,7 +28,7 @@ const BookingDetails = ({setNotiMssge, setNotification}) => {
       .then((res) => {
         setBooking(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)); 
   };
 
   const handleConfirm = (book) => {
@@ -39,7 +39,6 @@ const BookingDetails = ({setNotiMssge, setNotification}) => {
           setNotiMssge(res.data);
           toast.success("Booking Confirmed Successfully");
           handleAction();
-          setNotification(true);
         } else {
           toast.error(res.data.message || "Something went wrong!");
           console.error("API error:", res.data);
@@ -56,7 +55,6 @@ const BookingDetails = ({setNotiMssge, setNotification}) => {
           setNotiMssge(res.data);
           toast.info("Booking Cancelled Successfully");
           handleAction();
-          setNotification(true);
         } else {
           toast.error(res.data.message || "Something went wrong!");
           console.error("API error:", res.data);

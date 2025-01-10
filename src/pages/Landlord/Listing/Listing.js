@@ -81,7 +81,7 @@ const Listing = () => {
                 </InputGroup>
               </Col>
               <Col md={2} className="text-end">
-                <Link to="../AddProperty\Property.js" className="btn btn-primary btn-sm">
+                <Link to="../AddProperty" className="btn btn-primary btn-sm">
                   <Plus size={24} /> New Property
                 </Link>
               </Col>

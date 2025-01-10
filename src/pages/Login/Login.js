@@ -6,7 +6,7 @@ import "./Login.css";
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../constants/apiConstant";
 
-const Login = ({ setNav , setTnav, setAnav , setnavLord, setIsBell}) => {
+const Login = ({ setNav , setTnav, setAnav , setnavLord,setIsBell}) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [message, setMessage] = useState();
   const navigate = useNavigate();

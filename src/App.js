@@ -38,7 +38,6 @@ const App = () => {
   const [id, setId] = useState(null);
   const [Tnav, setTnav] = useState(false);
   const [isBell,setIsBell] = useState(false);
-  const [notification, setNotification] = useState(false);
   const [notiMssge, setNotiMssge] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [Anav, setAnav] = useState(false);
@@ -49,7 +48,7 @@ const App = () => {
   const toggleShowToast = () => {
     setShowToast(!showToast);
       if (showToast) {
-      setNotification(false);
+      setNotiMssge(null);
     }
   };
   
@@ -82,7 +81,6 @@ const App = () => {
       const UserID = user.userRole;
       if (UserID === "Landlords") {
         setnavLord(true);
-        setNotification(false);
       } else if (UserID === "Tenants") {
         setTnav(true);
         setIsBell(true);
@@ -103,7 +101,6 @@ const App = () => {
     setImageProfile(null); // Clear profile image on logout
     navigate(`/home`);
     setTnav(false);
-    setNotification(false);
     setAnav(false);
   };
 
@@ -198,7 +195,7 @@ const App = () => {
                         onClick={toggleShowToast}
                       >
                         <BellFill size={24} className="mx-5 my-3" />
-                        {notification && (
+                        {notiMssge && (
                           <span
                           style={{
                             position: "absolute",
@@ -363,7 +360,6 @@ const App = () => {
             element={
               <BookingDetails
                 setNotiMssge={setNotiMssge}
-                setNotification={setNotification}
               />
             }
           />

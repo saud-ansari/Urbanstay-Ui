@@ -32,6 +32,8 @@ const PopularProperties = ({ Searchproperty }) => {
     totalPrice: ""
   });
 
+  const [daysDifference, setDaysDifference] = useState(null); // Add state for date difference
+
   // Update booking state when propertyId, guestId, or hostId changes
   useEffect(() => {
     if (propertyModal) {
@@ -43,7 +45,7 @@ const PopularProperties = ({ Searchproperty }) => {
         totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
       }));
     }
-  }, [propertyModal, id]);  
+  }, [propertyModal, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +54,28 @@ const PopularProperties = ({ Searchproperty }) => {
       [name]: value,
     }));
     console.log(booking);
+
+    // Calculate date difference if both dates are present
+    if (name === "checkInDate" || name === "checkOutDate") {
+      const checkInDate = name === "checkInDate" ? value : booking.checkInDate;
+      const checkOutDate = name === "checkOutDate" ? value : booking.checkOutDate;
+
+      if (checkInDate && checkOutDate) {
+        const start = new Date(checkInDate);
+        const end = new Date(checkOutDate);
+        const differenceInTime = end - start;
+
+        if (differenceInTime < 0) {
+          setDaysDifference("Check-out date should be after check-in date!");
+        } else {
+          const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24);
+          setDaysDifference(differenceInDays);
+        }
+      }
+    }
   };
+
+
 
   // Fetch properties data
   useEffect(() => {
@@ -94,7 +117,7 @@ const PopularProperties = ({ Searchproperty }) => {
           handleClose();
         })
         .catch((err) => {
-          if(err.status === 400){
+          if (err.status === 400) {
             toast.error("Date already reserved");
           }
           console.log(err);
@@ -102,6 +125,9 @@ const PopularProperties = ({ Searchproperty }) => {
         });
     }
     setValidated(true);
+
+
+
   };
 
   return (
@@ -220,10 +246,12 @@ const PopularProperties = ({ Searchproperty }) => {
                 <Col xs={12} md={6}>
                   <Card className="booking-card mx-auto p-3">
                     <Card.Body>
+
                       <h5 className="price">
                         ₹{propertyModal.pricePerNight}
                         <span className="night">/ night</span>
                       </h5>
+
                       <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Row className="mt-3">
                           <Col md={6} xs={12}>
@@ -271,6 +299,28 @@ const PopularProperties = ({ Searchproperty }) => {
                             Enter Number of Guests
                           </Form.Control.Feedback>
                         </Form.Group>
+                        <Row className="mt-3">
+                          <Col>
+                            <Form.Group controlId="total-price">
+                              <Form.Label>Stay Duration</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={daysDifference}
+                                readOnly
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col>
+                            <Form.Group controlId="total-price">
+                              <Form.Label>Total Price</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={booking.totalPrice * daysDifference}
+                                readOnly
+                              />
+                            </Form.Group>
+                          </Col>
+                        </Row>
                         <div className="my-3 text-center text-muted">
                           You won't be charged yet
                         </div>

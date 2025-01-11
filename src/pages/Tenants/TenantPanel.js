@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { Col, Container, Row } from "react-bootstrap";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { UseSessionStorage } from '../../constants/SessionStorage';
 
 const TenantPanel = () => {
 
+  const [user] = UseSessionStorage('userInfo');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userinfo = localStorage.getItem("userInfo");
-    if (userinfo) {
-      const user = JSON.parse(userinfo);
+    if (user) {
       if (user.userRole !== "Tenants") {
         navigate(`/home`);
       }

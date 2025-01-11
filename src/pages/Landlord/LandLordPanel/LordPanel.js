@@ -21,7 +21,7 @@ const LordPanel = () => {
         <Row>
           <Col
             md={2}
-            style={{ background: "#7952b3", height: "100vh", color: "white" }}
+            style={{ background: "#7952b3", height: "200vh", color: "white" }}
           >
             <aside className="mt-2">
               <ul>

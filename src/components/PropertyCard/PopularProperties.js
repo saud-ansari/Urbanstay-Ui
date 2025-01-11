@@ -108,7 +108,7 @@ const PopularProperties = ({ Searchproperty }) => {
     <Container className="popular-properties">
       <h2 className="text-center">Popular Properties</h2>
       <Row className="property-cards mt-4">
-        {properties.slice(0, 20).map((property) => (
+        {properties.slice(0, 8).map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
             <Card className="property-card h-100">
               <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />

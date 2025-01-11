@@ -75,8 +75,6 @@ const PopularProperties = ({ Searchproperty }) => {
     }
   };
 
-
-
   // Fetch properties data
   useEffect(() => {
     if (Array.isArray(Searchproperty)) {
@@ -107,6 +105,7 @@ const PopularProperties = ({ Searchproperty }) => {
     if (form.checkValidity() === false && !userIn) {
       event.stopPropagation();
       toast.error("Login Required")
+      navigate("/login");
       return;
     } else {
       axios

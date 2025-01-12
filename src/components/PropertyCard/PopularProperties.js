@@ -70,6 +70,10 @@ const PopularProperties = ({ Searchproperty }) => {
         } else {
           const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24);
           setDaysDifference(differenceInDays);
+          setBooking((prevBooking) => ({
+            ...prevBooking,
+            totalPrice: propertyModal.pricePerNight * differenceInDays,
+          }));
         }
       }
     }
@@ -92,6 +96,7 @@ const PopularProperties = ({ Searchproperty }) => {
   const handleBook = (property) => {
     setModalShow(true);
     setPropertyModal(property);
+    
   };
 
   const handleClose = () => setModalShow(false);
@@ -117,7 +122,7 @@ const PopularProperties = ({ Searchproperty }) => {
         })
         .catch((err) => {
           if (err.status === 400) {
-            toast.error("Date already reserved");
+            toast.error("Date already reserved");            
           }
           console.log(err);
           toast.error("Booking Failed");
@@ -314,7 +319,7 @@ const PopularProperties = ({ Searchproperty }) => {
                               <Form.Label>Total Price</Form.Label>
                               <Form.Control
                                 type="text"
-                                value={booking.totalPrice * daysDifference}
+                                value={booking.totalPrice}
                                 readOnly
                               />
                             </Form.Group>

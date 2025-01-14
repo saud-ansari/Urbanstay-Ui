@@ -33,7 +33,7 @@ const BookingDetails = ({setNotiMssge}) => {
 
   const handleConfirm = (book) => {
     axios
-      .post(`${apiBaseUrl}/Booking/${book.bookingId}/Confirmed`)
+      .post(`${apiBaseUrl}/Booking/${book.bookingId}/Confirmed?fromemail=${book.hostEmail}&toName=${book.guestName}&toemail=${book.guestEmail}`)
       .then((res) => {
         if (res.data) {
           setNotiMssge(res.data);
@@ -49,7 +49,7 @@ const BookingDetails = ({setNotiMssge}) => {
   
   const handleCancel = (book) => {
     axios
-      .post(`${apiBaseUrl}/Booking/${book.bookingId}/Cancelled`)
+      .post(`${apiBaseUrl}/Booking/${book.bookingId}/Cancelled?fromemail=${book.hostEmail}&toName=${book.guestName}&toemail=${book.guestEmail}`)
       .then((res) => {
         if (res.data) {
           setNotiMssge(res.data);

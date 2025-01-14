@@ -28,6 +28,7 @@ import Mybooking from "./pages/Tenants/Mybooking";
 import PaymentDetails from "./components/Payment/paymentDetails";
 import Toast from "react-bootstrap/Toast";
 import { UseSessionStorage } from "./constants/SessionStorage";
+import Testingpage from "./testingpages/Testingpage";
 
 const App = () => {
   const [user] = UseSessionStorage("userInfo",'');
@@ -365,7 +366,12 @@ const App = () => {
           <Route path="users" element={<UserList />} />
           <Route path="user/:id?" element={<UserForm />} />
         </Route>
+        
+        {/* Testing Pages */}
+       <Route path="/test" element={<Testingpage/>}/> 
       </Routes>
+
+      
 
       <ToastContainer theme="colored" />
     </>

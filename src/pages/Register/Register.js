@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Register.css";
 import { Alert, Container } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -79,14 +80,14 @@ const Register = () => {
             <div className="col-md-6 right-side">
               <div className="card-body p-4">
                 <h5 className="card-title">Create your account</h5>
-                <form onSubmit={handleSubmit} noValidate>
+                <Form onSubmit={handleSubmit} noValidate>
                   {message && (
                     <Alert variant="danger" className="my-2">
                       {message}
                     </Alert>
                   )}
                   <div className="form-group mb-3">
-                    <label>First Name</label>
+                    <label>First Name <span>*</span></label>
                     <input
                       type="text"
                       className="form-control"
@@ -97,7 +98,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label>Last Name</label>
+                    <label>Last Name <span>*</span></label>
                     <input
                       type="text"
                       className="form-control"
@@ -108,7 +109,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label>Username</label>
+                    <label>Username <span>*</span></label>
                     <input
                       type="text"
                       className="form-control"
@@ -119,7 +120,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label>Password</label>
+                    <label>Password <span>*</span></label>
                     <input
                       type="password"
                       className="form-control"
@@ -130,7 +131,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-3">
-                    <label>Email</label>
+                    <label>Email <span>*</span></label>
                     <input
                       type="email"
                       className="form-control"
@@ -141,7 +142,7 @@ const Register = () => {
                     />
                   </div>
                   <div className="form-group mb-4">
-                    <label>Mobile No</label>
+                    <label>Mobile No <span>*</span></label>
                     <input
                       type="text"
                       className="form-control"
@@ -161,7 +162,7 @@ const Register = () => {
                       Already have an account? Login
                     </Link>
                   </div>
-                </form>
+                </Form>
               </div>
             </div>
           </div>

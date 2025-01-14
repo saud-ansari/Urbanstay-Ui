@@ -32,6 +32,8 @@ const PopularProperties = ({ Searchproperty }) => {
     totalPrice: ""
   });
 
+  const [daysDifference, setDaysDifference] = useState(null); // Add state for date difference
+
   // Update booking state when propertyId, guestId, or hostId changes
   useEffect(() => {
     if (propertyModal) {
@@ -43,7 +45,7 @@ const PopularProperties = ({ Searchproperty }) => {
         totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
       }));
     }
-  }, [propertyModal, id]);  
+  }, [propertyModal, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,6 +54,29 @@ const PopularProperties = ({ Searchproperty }) => {
       [name]: value,
     }));
     console.log(booking);
+
+    // Calculate date difference if both dates are present
+    if (name === "checkInDate" || name === "checkOutDate") {
+      const checkInDate = name === "checkInDate" ? value : booking.checkInDate;
+      const checkOutDate = name === "checkOutDate" ? value : booking.checkOutDate;
+
+      if (checkInDate && checkOutDate) {
+        const start = new Date(checkInDate);
+        const end = new Date(checkOutDate);
+        const differenceInTime = end - start;
+
+        if (differenceInTime < 0) {
+          setDaysDifference("Check-out date should be after check-in date!");
+        } else {
+          const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24);
+          setDaysDifference(differenceInDays);
+          setBooking((prevBooking) => ({
+            ...prevBooking,
+            totalPrice: propertyModal.pricePerNight * differenceInDays,
+          }));
+        }
+      }
+    }
   };
 
   // Fetch properties data
@@ -71,6 +96,7 @@ const PopularProperties = ({ Searchproperty }) => {
   const handleBook = (property) => {
     setModalShow(true);
     setPropertyModal(property);
+    
   };
 
   const handleClose = () => setModalShow(false);
@@ -84,6 +110,7 @@ const PopularProperties = ({ Searchproperty }) => {
     if (form.checkValidity() === false && !userIn) {
       event.stopPropagation();
       toast.error("Login Required")
+      navigate("/login");
       return;
     } else {
       axios
@@ -94,21 +121,24 @@ const PopularProperties = ({ Searchproperty }) => {
           handleClose();
         })
         .catch((err) => {
-          if(err.status === 400){
-            toast.error("Date already reserved");
+          if (err.status === 400) {
+            toast.error("Date already reserved");            
           }
           console.log(err);
           toast.error("Booking Failed");
         });
     }
     setValidated(true);
+
+
+
   };
 
   return (
     <Container className="popular-properties">
       <h2 className="text-center">Popular Properties</h2>
       <Row className="property-cards mt-4">
-        {properties.slice(0, 20).map((property) => (
+        {properties.slice(0, 8).map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
             <Card className="property-card h-100">
               <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
@@ -220,10 +250,12 @@ const PopularProperties = ({ Searchproperty }) => {
                 <Col xs={12} md={6}>
                   <Card className="booking-card mx-auto p-3">
                     <Card.Body>
+
                       <h5 className="price">
                         ₹{propertyModal.pricePerNight}
                         <span className="night">/ night</span>
                       </h5>
+
                       <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Row className="mt-3">
                           <Col md={6} xs={12}>
@@ -271,6 +303,28 @@ const PopularProperties = ({ Searchproperty }) => {
                             Enter Number of Guests
                           </Form.Control.Feedback>
                         </Form.Group>
+                        <Row className="mt-3">
+                          <Col>
+                            <Form.Group controlId="total-price">
+                              <Form.Label>Stay Duration</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={daysDifference}
+                                readOnly
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col>
+                            <Form.Group controlId="total-price">
+                              <Form.Label>Total Price</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={booking.totalPrice}
+                                readOnly
+                              />
+                            </Form.Group>
+                          </Col>
+                        </Row>
                         <div className="my-3 text-center text-muted">
                           You won't be charged yet
                         </div>

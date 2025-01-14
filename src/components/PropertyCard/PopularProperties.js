@@ -21,6 +21,7 @@ const PopularProperties = ({ Searchproperty }) => {
 
   const [userIn] = UseSessionStorage("userInfo", "");
   const id = userIn?.id;
+  const userRoleLandLord = userIn.userRole === 'Landlords';
 
   const [booking, setBooking] = useState({
     propertyId: "",
@@ -45,7 +46,7 @@ const PopularProperties = ({ Searchproperty }) => {
         totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
       }));
     }
-  }, [propertyModal, id]);
+  }, [propertyModal, id,userRoleLandLord]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -333,6 +334,7 @@ const PopularProperties = ({ Searchproperty }) => {
                           className="reserve-btn my-1 w-100"
                           variant="danger"
                           size="lg"
+                          disabled={userRoleLandLord}
                         >
                           Reserve
                         </Button>

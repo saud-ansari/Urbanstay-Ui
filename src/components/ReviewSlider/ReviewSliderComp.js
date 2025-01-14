@@ -26,7 +26,7 @@ const ReviewSliderComp = () => {
                 settings: {
                     slidesToShow: 1,
                 }
-            }
+            },
 
         ]
     };
@@ -38,7 +38,7 @@ const ReviewSliderComp = () => {
                 {/* Card 1 */}
                 <Card className="carousel-slide shadow ">
                     <h5 className="text-center">Exceptional Stay!</h5>
-                    <p>
+                    <p className="truncated-multiline">
                         "The urban apartment exceeded all my expectations! The space was well-designed, and the location was perfect for exploring the city. 
                         I especially loved the rooftop view."
                     </p>
@@ -48,7 +48,7 @@ const ReviewSliderComp = () => {
                 {/* Card 2 */}
                 <Card className="carousel-slide shadow">
                     <h5 className="text-center">A Wonderful Experience</h5>
-                    <p>
+                    <p className="truncated-multiline">
                         "My stay at the mountain retreat was unforgettable. The cozy ambiance, stunning surroundings, and great service made this the perfect escape."
                     </p>
                     <h5 className="text-muted text-center">- Sarah Johnson</h5>
@@ -57,7 +57,7 @@ const ReviewSliderComp = () => {
                 {/* Card 3 */}
                 <Card className="carousel-slide shadow">
                     <h5 className="text-center">Highly Recommended</h5>
-                    <p>
+                    <p className="truncated-multiline">
                         "Stayed at the downtown loft, and it was an amazing experience. The modern decor and unbeatable location made it ideal for my business trip.
                         Will definitely book again!"
                     </p>
@@ -67,7 +67,7 @@ const ReviewSliderComp = () => {
                 {/* Card 4 */}
                 <Card className="carousel-slide shadow">
                     <h5 className="text-center">Perfect for a Family Vacation</h5>
-                    <p>
+                    <p className="truncated-multiline">
                         "The lakeside cottage was everything we wanted and more. Peaceful, beautiful views, and plenty of space for the kids to play."
                     </p>
                     <h5 className="text-muted text-center">- Emily Parker</h5>
@@ -76,7 +76,7 @@ const ReviewSliderComp = () => {
                 {/* Card 5 */}
                 <Card className="carousel-slide shadow">
                     <h5 className="text-center">Amazing Weekend Getaway</h5>
-                    <p>
+                    <p className="truncated-multiline">
                         "Stayed at the seaside villa for a weekend, and it was absolutely perfect. The beach was right outside our door, and the villa itself was gorgeous.!"
                     </p>
                     <h5 className="text-muted text-center">- John Davis</h5>

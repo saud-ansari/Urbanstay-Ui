@@ -1,10 +1,10 @@
 import React from 'react'
-import DateDifferenceCalculator from './DateDifferenceCalculator'
+import CardWithEllipsis from './CardWithEllipsis'
 
 const Testingpage = () => {
   return (
     <>
-    <DateDifferenceCalculator />
+    <CardWithEllipsis/>
     </>
   )
 }

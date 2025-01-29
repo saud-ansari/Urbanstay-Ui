@@ -2,21 +2,49 @@ import React, { useState } from 'react'
 import { Button, Card, CardBody, Col, Container, Form, Row } from 'react-bootstrap'
 import { ChatLeftDotsFill, EnvelopeFill, GeoAltFill, TelephoneFill } from 'react-bootstrap-icons';
 import "./ContactUs.css";
+import axios from 'axios';
+import { apiBaseUrl } from '../../constants/apiConstant';
+import { toast } from 'react-toastify';
 
 const ContactUs = () => {
 
   const [validated, setValidated] = useState(false);
+  const [data,setData] = useState({
+    name: "",
+    email: "",
+    message:""
+  })
+
+  const handleChange = (e) =>{
+    const {name,value} = e.target;
+    setData({...data,[name]:value});
+  }
 
   const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
     const form = event.currentTarget;
+  
+    // Validate the form fields
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      event.stopPropagation(); 
+      toast.error("Please fill in all required fields."); 
+      if (data.name && data.email && data.message) {
+        axios.post(`${apiBaseUrl}/ContactUs`, data)
+          .then((res) => {
+            toast.success("Message Sent Successfully");            
+          })
+          .catch((err) => {
+            console.error(err);
+            toast.error("Something went wrong while sending the message."); 
+          });
+      } else {
+        toast.error("All fields are required.");
+      }
     }
-
+  
     setValidated(true);
-
-  }
+  };
+  
 
 
   return (
@@ -88,6 +116,9 @@ const ContactUs = () => {
                           required
                           type="text"
                           placeholder="Enter your Name"
+                          name='name'
+                          value={data.name}
+                          onChange={handleChange}
                         />
                         <Form.Control.Feedback type="invalid">Please enter your Name</Form.Control.Feedback>
                       </Form.Group>
@@ -98,6 +129,9 @@ const ContactUs = () => {
                           required
                           type="text"
                           placeholder="Enter Email Id"
+                          name='email'
+                          value={data.email}
+                          onChange={handleChange}
                         />
                         <Form.Control.Feedback type="invalid">Please enter your a Valid Email ID</Form.Control.Feedback>
                       </Form.Group>
@@ -109,6 +143,9 @@ const ContactUs = () => {
                           as="textarea"
                           placeholder="Message"
                           rows={3}
+                          name='message'
+                          value={data.message}
+                          onChange={handleChange}
                         />
                         <Form.Control.Feedback type="invalid">Please enter your Message</Form.Control.Feedback>
                       </Form.Group>

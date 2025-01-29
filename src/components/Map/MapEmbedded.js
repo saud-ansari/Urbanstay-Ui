@@ -26,6 +26,6 @@ const MapEmbedded = ({longitude,latitude,Property}) => {
 export default MapEmbedded
 
 
-{/* <TileLayer
-        url="https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey=4S6JGD9GKKl8fyuNxxdGlzCH4Uv3VnP60khJgh_wTF8"
-      /> */}
+// {/* <TileLayer
+//         url="https://2.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey=4S6JGD9GKKl8fyuNxxdGlzCH4Uv3VnP60khJgh_wTF8"
+//       /> */}

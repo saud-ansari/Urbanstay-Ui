@@ -141,7 +141,7 @@ const PopularProperties = ({ Searchproperty }) => {
       <Row className="property-cards mt-4">
         {properties.slice(0, 8).map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
-            <Card className="property-card h-100">
+            <Card onClick={() => handleBook(property)} className="property-card h-100" style={{cursor: "pointer"}} >
               <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
               <Card.Body>
                 <Card.Title className="title-ellipsis">{property.title}</Card.Title>

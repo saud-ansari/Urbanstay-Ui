@@ -8,6 +8,7 @@ import "./PopularProperties.css";
 import "./BookingCard.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import MapEmbedded from "../Map/MapEmbedded";
 
 const PopularProperties = ({ Searchproperty }) => {
   const navigate = useNavigate();
@@ -18,10 +19,12 @@ const PopularProperties = ({ Searchproperty }) => {
   // const [GuestId, setGuestId] = useState("");
   // const [hostId, setHostId] = useState("");
   // const [totalPrice,setTotalPrice] = useState("");
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const [userIn] = UseSessionStorage("userInfo", "");
   const id = userIn?.id;
-  const userRoleLandLord = userIn.userRole === 'Landlords';
+  const userRoleLandLord = userIn.userRole === 'Landlords' || 'Super Admin';
 
   const [booking, setBooking] = useState({
     propertyId: "",
@@ -142,7 +145,7 @@ const PopularProperties = ({ Searchproperty }) => {
         {properties.slice(0, 8).map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
             <Card className="property-card h-100">
-              <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
+              <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} loading="lazy"/>
               <Card.Body>
                 <Card.Title className="title-ellipsis">{property.title}</Card.Title>
                 <Row>
@@ -342,6 +345,9 @@ const PopularProperties = ({ Searchproperty }) => {
                     </Card.Body>
                   </Card>
                 </Col>
+              </Row>
+              <Row>
+                <MapEmbedded longitude={propertyModal.longitude} latitude={propertyModal.latitude} Property={propertyModal.title}/>
               </Row>
             </Container>
           )}

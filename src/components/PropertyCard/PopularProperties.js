@@ -184,8 +184,8 @@ const PopularProperties = ({ Searchproperty }) => {
           {propertyModal && (
             <Container>
               <h3 className="title-ellipsis">{propertyModal.title}</h3>
-              <Row>
-                <Col sm={12} md={6} lg={6}>
+              <Row className="images-container">
+                <Col sm={12} md={6} lg={6} className="main-image-container">
                   <img
                     src={`${apiBaseImageProperty}${propertyModal.imagePath}`}
                     alt=""
@@ -193,7 +193,7 @@ const PopularProperties = ({ Searchproperty }) => {
                   />
                 </Col>
                 <Col xs={12} md={6} lg={6}>
-                  <Row>
+                  <Row className="small-images-row">
                     {[2, 3, 4, 5].map((index) => {
                       const imagePath = propertyModal[`imagePath${index}`];
                       return (

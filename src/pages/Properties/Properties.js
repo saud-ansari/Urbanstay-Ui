@@ -8,10 +8,10 @@ import "./PopularProperties.css";
 import "./BookingCard.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import MapEmbedded from "../Map/MapEmbedded";
-import Amenities from "../Amenities/Amenities";
+import MapEmbedded from "../../components/Map/MapEmbedded";
+import Amenities from "../../components/Amenities/Amenities";
 
-const PopularProperties = ({ Searchproperty }) => {
+const Properties = ({ Searchproperty }) => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [modalShow, setModalShow] = useState(false);
@@ -140,7 +140,7 @@ const PopularProperties = ({ Searchproperty }) => {
     <Container className="popular-properties">
       <h2 className="text-center">Popular Properties</h2>
       <Row className="property-cards mt-4">
-        {properties.slice(0, 8).map((property) => (
+        {properties.map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
             <Card onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
               <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
@@ -377,4 +377,4 @@ const PopularProperties = ({ Searchproperty }) => {
   );
 };
 
-export default PopularProperties;
+export default Properties;

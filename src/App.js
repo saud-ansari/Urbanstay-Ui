@@ -7,6 +7,7 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import Properties from "./pages/Properties/Properties";
 import UserList from "./pages/Admin/User/UserList";
 import AdminLayout from "./pages/Admin/AdminLayout";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
@@ -124,6 +125,14 @@ const App = () => {
                 className="Nav-Text"
               >
                 Home
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/properties"
+                aria-label="properties"
+                className="Nav-Text"
+              >
+                Properties
               </Nav.Link>
               <Nav.Link
                 as={Link}
@@ -318,6 +327,7 @@ const App = () => {
       <Routes>
         <Route index element={<Home />} />
         <Route path="home" element={<Home userIn={userIn} />} />
+        <Route path="properties" element={<Properties />} />
         <Route path="about" element={<AboutUs />} />
         <Route path="contact" element={<ContactUs />} />
         <Route

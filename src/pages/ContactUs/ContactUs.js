@@ -25,12 +25,16 @@ const ContactUs = () => {
     const form = event.currentTarget;
   
     // Validate the form fields
-    if (form.checkValidity() === false) {
+    if (!form.checkValidity()) {
       event.stopPropagation(); 
+      event.preventDefault();
       toast.error("Please fill in all required fields."); 
+      return;
+    }else{
       if (data.name && data.email && data.message) {
         axios.post(`${apiBaseUrl}/ContactUs`, data)
           .then((res) => {
+            if(res.data)
             toast.success("Message Sent Successfully");            
           })
           .catch((err) => {
@@ -109,7 +113,7 @@ const ContactUs = () => {
                   </Card.Title>
                 <Card.Body>
 
-                  <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                  <Form noValidate validated={validated}>
                     <Row className="mb-3">
                       <Form.Group as={Col} md="12" controlId="validationCustom01">
                         <Form.Control
@@ -150,9 +154,8 @@ const ContactUs = () => {
                         <Form.Control.Feedback type="invalid">Please enter your Message</Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                    <Button type="submit">Submit form</Button>
+                    <Button onClick={handleSubmit}>Submit form</Button>
                   </Form>
-
                 </Card.Body>
               </Container>
             </Card>

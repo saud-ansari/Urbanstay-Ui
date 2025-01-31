@@ -9,6 +9,7 @@ import "./BookingCard.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import MapEmbedded from "../Map/MapEmbedded";
+import Amenities from "../Amenities/Amenities";
 
 const PopularProperties = ({ Searchproperty }) => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const PopularProperties = ({ Searchproperty }) => {
         totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
       }));
     }
-  }, [propertyModal, id,userRoleLandLord]);
+  }, [propertyModal, id, userRoleLandLord]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -100,7 +101,7 @@ const PopularProperties = ({ Searchproperty }) => {
   const handleBook = (property) => {
     setModalShow(true);
     setPropertyModal(property);
-    
+
   };
 
   const handleClose = () => setModalShow(false);
@@ -126,7 +127,7 @@ const PopularProperties = ({ Searchproperty }) => {
         })
         .catch((err) => {
           if (err.status === 400) {
-            toast.error("Date already reserved");            
+            toast.error("Date already reserved");
           }
           console.log(err);
           toast.error("Booking Failed");
@@ -144,7 +145,7 @@ const PopularProperties = ({ Searchproperty }) => {
       <Row className="property-cards mt-4">
         {properties.slice(0, 8).map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
-            <Card onClick={() => handleBook(property)} className="property-card h-100" style={{cursor: "pointer"}} >
+            <Card onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
               <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
               <Card.Body>
                 <Card.Title className="title-ellipsis">{property.title}</Card.Title>
@@ -178,7 +179,14 @@ const PopularProperties = ({ Searchproperty }) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Book Now</Modal.Title>
+          <Modal.Title className="d-flex align-items-center text-danger">
+            <Image
+              src="Logo-icon.png"
+              alt="Urbanstay Logo"
+              // fluid
+              // rounded
+            />
+            Book Now !!!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {propertyModal && (
@@ -250,6 +258,7 @@ const PopularProperties = ({ Searchproperty }) => {
                       </tr>
                     </tbody>
                   </Table>
+                  <Amenities />
                 </Col>
                 <Col xs={12} md={6}>
                   <Card className="booking-card mx-auto p-3">
@@ -347,7 +356,21 @@ const PopularProperties = ({ Searchproperty }) => {
                 </Col>
               </Row>
               <Row>
-                <MapEmbedded longitude={propertyModal.longitude} latitude={propertyModal.latitude} Property={propertyModal.title}/>
+                <Card className="booking-card mx-auto p-1">
+                  <Card.Header className="d-flex align-items-center">
+                    <h4 className="mb-0 d-flex align-items-center">
+                      <GeoAltFill className="mx-1 text-danger" />
+                      Location
+                    </h4>
+                    <p className="text-muted ms-3 mb-0">
+                      {propertyModal.address}, {propertyModal.city}, {propertyModal.country}
+                    </p>
+                  </Card.Header>
+
+                  <Card.Body>
+                    <MapEmbedded longitude={propertyModal.longitude} latitude={propertyModal.latitude} Property={propertyModal.title} />
+                  </Card.Body>
+                </Card>
               </Row>
             </Container>
           )}

@@ -100,11 +100,9 @@ const App = () => {
           {/* Centered brand logo for small screens */}
           <div className="d-lg-none m-1">
             <Navbar.Brand as={Link} to="/">
-              <img
-                src={Logo}
-                className="d-inline-block align-top logo-img"
-                alt="Company Logo"
-                style={{ height: "60px", width: "auto", display: "block" }} // Add width:auto and block
+              <Image
+                src="Logo-icon.png"                 
+                alt="Company Logo"                
               />
             </Navbar.Brand>
           </div>
@@ -151,10 +149,10 @@ const App = () => {
               to="/"
               className="mx-auto d-none d-lg-block"
             >
-              <img
-                src={Logo} // Adjusted path
-                width="100%"
-                height="30"
+              <Image
+                src="Logo-icon.png" // Adjusted path
+                // width="100%"
+                // height="30"
                 className="d-inline-block align-top"
                 alt="Company Logo"
               />

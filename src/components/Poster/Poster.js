@@ -12,9 +12,9 @@ const Poster = ({ Searchproperty, setSearchProperty }) => {
 
   const banners = [Banner1, Banner2, Banner3];
   const labels = [
-    { title: 'Stay At Hawaii', subtitle: 'Join Us for a weekend getaway' },
-    { title: 'Explore Bali', subtitle: 'Discover the beauty of Bali' },
-    { title: 'Vacation in Maldives', subtitle: 'Relax at the tropical paradise' },
+    { title: 'Welcome to Urbanstay', subtitle: 'Experience the best short-term stays in prime locations' },
+    { title: 'Explore Local Gems', subtitle: 'Discover unique and comfortable accommodations close to city highlights' },
+    { title: 'Urban Comforts', subtitle: 'Enjoy modern amenities and cozy stays in the heart of the city' }
   ];
 
   useEffect(() => {
@@ -46,6 +46,7 @@ const Poster = ({ Searchproperty, setSearchProperty }) => {
         .then((res) => {
           if (res.data) {
             setSearchProperty(res.data); // Update search results
+            console.log(res.data);
           }
         })
         .catch((err) => {
@@ -107,7 +108,7 @@ const Poster = ({ Searchproperty, setSearchProperty }) => {
                 <Col xs={6} lg={2} className="input-field">
                   <Form.Group controlId="guests">
                     <Form.Label>Guest</Form.Label>
-                    <Form.Control type="text" placeholder="Add Guest" />
+                    <Form.Control type="number" placeholder="Add Guest" />
                   </Form.Group>
                 </Col>
 

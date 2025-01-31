@@ -25,7 +25,7 @@ const AboutUs = () => {
 
               <p>At UrbanStay, we strive to provide a seamless and comfortable living experience for both short and long-term guests. Our modern, fully-furnished accommodations are designed to offer a perfect blend of comfort, style, and convenience. </p>
               <p>Whether you're traveling for work, leisure, or a long-term stay, UrbanStay offers flexible solutions in prime city locations, ensuring a home-like atmosphere with all the amenities you need. </p>
-              <button className='btn2'>More About Us</button>
+              {/* <button className='btn2'>More About Us</button> */}
             </Col>
 
             {/* Image Section */}

@@ -18,7 +18,7 @@ const AdminLayout = () => {
 return (
   <Container fluid>
       <Row>
-          <Col md={2} style={{ background: '#7952b3', height: '100vh', color: 'white' }}>
+          <Col md={2} style={{ background: '#7952b3', height: '100vh', color: 'white'  }}>
               <aside className='mt-2'>
                   <ul>
                       <li className='p-2'>

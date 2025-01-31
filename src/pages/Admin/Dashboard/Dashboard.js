@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UseSessionStorage } from '../../../constants/SessionStorage';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Badge, Card, Col, Row } from 'react-bootstrap';
 import './Dashboard.css'
 import PropertyBarChart from '../../../components/Charts/AdminCharts/PropertyBarChart';
 import axios from 'axios';
+import { GraphUpArrow } from 'react-bootstrap-icons';
 
 const Dashboard = () => {
 
@@ -21,7 +22,7 @@ const Dashboard = () => {
     }
   }, [navigate, user])
 
-  const tenantCount = () =>{
+  const tenantCount = () => {
     axios.get('http://localhost:57614/tenant')
       .then((response) => {
         if (response.data) {
@@ -39,8 +40,17 @@ const Dashboard = () => {
 
   return (
     <>
-      <h3>Dashboard</h3>
-      <h1>Welcome {user.userName}</h1>
+
+      <h4 className='mt-2 float-end'>
+        <Badge bg='light' style={{ color: 'rgb(121, 82, 179)' }}>
+          <GraphUpArrow className='me-1' /> Dashboard
+        </Badge>
+      </h4>
+      <h3 className='my-3'>Welcome,
+        <span className='text-capitalize fs-1 fw-bolder ' style={{ color: 'rgb(121, 82, 179)' }}>
+          {user.userName}
+        </span>
+      </h3>
 
       <Row>
         <Col>
@@ -76,20 +86,13 @@ const Dashboard = () => {
       </Row>
 
       <Row>
-        <Col xs={12} lg={6} className='Summary-chart'>
-          <Card>
+        <Col xs={12} lg={12} className='Summary-chart'>
+          <Card className='my-3'>
             <Card.Body>
               <PropertyBarChart />
             </Card.Body>
           </Card>
-        </Col>
-        <Col xs={12} lg={6} className='Summary-chart'>
-          <Card>
-            <Card.Body>3
-              {/* <PieChart/> */}
-            </Card.Body>
-          </Card>
-        </Col>
+        </Col>        
       </Row>
 
 

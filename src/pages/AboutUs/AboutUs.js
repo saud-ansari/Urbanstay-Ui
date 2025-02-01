@@ -19,7 +19,7 @@ const AboutUs = () => {
         {/* Content Section */}
         <Container className="my-5">
           <Row className="align-items-center">
-            <Col lg={6} md={12}>
+            <Col data-aos="zoom-in-right" lg={6} md={12}>
               <h1 className='conetnt-section'>Our Agency Story</h1>
               <p className="subtitle">Check out our company story and work process</p>
 
@@ -29,7 +29,7 @@ const AboutUs = () => {
             </Col>
 
             {/* Image Section */}
-            <Col lg={6} md={12}>
+            <Col data-aos="zoom-in-up" lg={6} md={12}>
               <img src={img2} alt='Our Agency Story' className="img-fluid about-img" />
             </Col>
           </Row>

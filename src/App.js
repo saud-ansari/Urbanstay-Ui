@@ -13,7 +13,8 @@ import AdminLayout from "./pages/Admin/AdminLayout";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import UserForm from "./pages/Admin/User/UserForm";
 import { apiBaseImage } from "./constants/apiConstant";
-import Logo from "./assets/img/Logo-icon.png";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 import "./App.css";
 import Profile from "./pages/Landlord/Profile/Profile";
 import LordPanel from "./pages/Landlord/LandLordPanel/LordPanel";
@@ -44,6 +45,15 @@ const App = () => {
   const [showToast, setShowToast] = useState(false);
   const [Anav, setAnav] = useState(false);
   const [userIn, setuserIn] = useState(null);
+
+  useEffect(() => {
+    // Initialize AOS once when the app loads
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+    });
+  }, []);
 
   const toggleShowToast = () => {
     setShowToast(!showToast);

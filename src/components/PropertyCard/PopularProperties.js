@@ -142,7 +142,7 @@ const PopularProperties = ({ Searchproperty }) => {
       <Row className="property-cards mt-4">
         {properties.slice(0, 8).map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
-            <Card onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
+            <Card data-aos="fade-up" onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
               <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
               <Card.Body>
                 <Card.Title className="title-ellipsis">{property.title}</Card.Title>
@@ -169,6 +169,7 @@ const PopularProperties = ({ Searchproperty }) => {
       </Row>
 
       <Modal
+       data-aos="zoom-in"
         show={modalShow}
         onHide={handleClose}
         fullscreen={true}
@@ -185,7 +186,7 @@ const PopularProperties = ({ Searchproperty }) => {
             />
             Book Now !!!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body data-aos="zoom-in-up">
           {propertyModal && (
             <Container>
               <h3 className="title-ellipsis">{propertyModal.title}</h3>

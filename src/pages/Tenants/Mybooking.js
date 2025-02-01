@@ -26,7 +26,7 @@ const Mybooking = () => {
     <>
       <Container className="my-4">
         <Card>
-          <Card.Body>
+          <Card.Body data-aos="flip-up">
             <Card.Title>My Booking</Card.Title>
             <Card.Text className="text-muted">
               Here you can see all your booking details and payment status.

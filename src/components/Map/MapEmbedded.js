@@ -13,7 +13,7 @@ const MapEmbedded = ({longitude,latitude,Property}) => {
   });
 
   return (
-    <MapContainer center={[latitude,longitude]} zoom={12} style={{ height: "400px", width: "100%" }}>
+    <MapContainer data-aos="zoom-in-up" center={[latitude,longitude]} zoom={12} style={{ height: "400px", width: "100%" }}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       
       <Marker position={[latitude,longitude]} icon={customIcon}>

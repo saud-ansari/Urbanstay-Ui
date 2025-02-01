@@ -55,7 +55,7 @@ const ContactUs = () => {
     <>
       <Container className='my-5'>
         <Row>
-          <Col sm={6}>
+          <Col data-aos="flip-right" sm={6}>
             <Row>
               <Col xs={12} md={6} >
                 <Card className="text-center m-3 mx-auto Tiles-Card ">
@@ -105,7 +105,7 @@ const ContactUs = () => {
             </Row>
           </Col>
 
-          <Col sm={6}>
+          <Col data-aos="flip-left" sm={6}>
             <Card className="text-center my-2 py-3" >
               <Container>
                 <Card.Title className="my-3">

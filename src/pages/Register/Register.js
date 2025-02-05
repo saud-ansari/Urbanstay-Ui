@@ -58,7 +58,7 @@ const Register = () => {
   return (
     <>
       <Container className="container my-5 d-block justify-content-center">
-        <div className="card login-card">
+        <div data-aos="flip-right" className="card login-card">
           <div className="row g-0">
             {/* <!-- Left Side --> */}
             <div className="col-md-6 left-side d-flex flex-column justify-content-center align-items-center">

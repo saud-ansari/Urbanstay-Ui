@@ -128,6 +128,7 @@ const UserList = () => {
 
           <div className="table-responsive">
             <Table
+            data-aos="zoom-in-up"
               striped
               bordered
               hover

@@ -32,7 +32,7 @@ const ReviewSliderComp = () => {
     };
 
     return (
-        <div className="review-slider-comp my-5">
+        <div className="review-slider-comp my-5" data-aos="zoom-in-up">
             <h3 className="text-center mb-4">What Our Guests Are Saying</h3>
             <Slider {...settings}>
                 {/* Card 1 */}

@@ -80,9 +80,10 @@ body {
     text-decoration: underline;
 }
 
+/* 
 span {
     color: rgb(216, 12, 12);
-}
+} */
 
 @media (max-width: 768px) {
     .login-card {

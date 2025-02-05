@@ -8,10 +8,10 @@ import "./PopularProperties.css";
 import "./BookingCard.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import MapEmbedded from "../Map/MapEmbedded";
-import Amenities from "../Amenities/Amenities";
+import MapEmbedded from "../../components/Map/MapEmbedded";
+import Amenities from "../../components/Amenities/Amenities";
 
-const PopularProperties = ({ Searchproperty }) => {
+const Properties = ({ Searchproperty }) => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [modalShow, setModalShow] = useState(false);
@@ -25,7 +25,7 @@ const PopularProperties = ({ Searchproperty }) => {
 
   const [userIn] = UseSessionStorage("userInfo", "");
   const id = userIn?.id;
-  const userRoleLandLord = userIn.userRole === 'Landlords' || userIn.userRole === 'Super Admin';
+  const userRoleLandLord = userIn.userRole === 'Landlords' || 'Super Admin';
 
   const [booking, setBooking] = useState({
     propertyId: "",
@@ -50,11 +50,7 @@ const PopularProperties = ({ Searchproperty }) => {
         totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
       }));
     }
-<<<<<<< HEAD
-  }, [propertyModal, id]);
-=======
   }, [propertyModal, id, userRoleLandLord]);
->>>>>>> b41ed2e2c039a635b803a7c52c948e14e97c4dbb
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -123,7 +119,7 @@ const PopularProperties = ({ Searchproperty }) => {
       return;
     } else {
       axios
-        .post(`${apiBaseUrl}/Booking/fromemail=${properties.hostEmail}&toName=${properties.guestName}&toemail=${properties.guestEmail}`, booking)
+        .post(`${apiBaseUrl}/Booking`, booking)
         .then((res) => {
           navigate(`/tenants/mybooking`);
           toast.success("Booking Successful");
@@ -144,9 +140,9 @@ const PopularProperties = ({ Searchproperty }) => {
     <Container className="popular-properties">
       <h2 className="text-center">Popular Properties</h2>
       <Row className="property-cards mt-4">
-        {properties.slice(0, 8).map((property) => (
+        {properties.map((property) => (
           <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
-            <Card data-aos="fade-up" onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
+            <Card data-aos="zoom-in-up" onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
               <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
               <Card.Body>
                 <Card.Title className="title-ellipsis">{property.title}</Card.Title>
@@ -173,7 +169,7 @@ const PopularProperties = ({ Searchproperty }) => {
       </Row>
 
       <Modal
-       data-aos="zoom-in"
+      data-aos="zoom-in-up"
         show={modalShow}
         onHide={handleClose}
         fullscreen={true}
@@ -382,4 +378,4 @@ const PopularProperties = ({ Searchproperty }) => {
   );
 };
 
-export default PopularProperties;
+export default Properties;

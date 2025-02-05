@@ -27,7 +27,7 @@ const Booking = () => {
   return (
     <>
       <h2 className="text-center my-5">Booking Details</h2>
-      <Table striped bordered hover responsive='sm'>
+      <Table striped bordered hover responsive='sm' data-aos="flip-up" >
         <thead>
           <tr>
             <th>Booking ID</th>

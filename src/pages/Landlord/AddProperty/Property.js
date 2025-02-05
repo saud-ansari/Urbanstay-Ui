@@ -177,7 +177,7 @@ const Property = () => {
 
       <Container className="my-4">
         <Card>
-          <Card.Body>
+          <Card.Body data-aos="flip-up">
             <Card.Title>Add Property</Card.Title>
             <Form>
               <Row className="mb-3">

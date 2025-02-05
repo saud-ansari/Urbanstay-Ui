@@ -1,0 +1,67 @@
+.popular-properties {
+    padding: 40px 20px;
+}
+
+.property-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.property-card {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.property-card:hover {
+    transform: scale(1.05);
+}
+
+.property-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.title-ellipsis {
+    white-space: nowrap;     /* Prevent the text from wrapping to the next line */
+    overflow: hidden;        /* Hide any overflowed content */
+    text-overflow: ellipsis; /* Show ellipsis when the text overflows */
+    max-width: 100%;         /* Set a maximum width for the title */
+    display: block;          /* Ensure the element respects the width */
+}
+
+.book-btn {
+    background-color: #8A5C8D !important;
+    border: none !important;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.book-btn:hover {
+    background-color: #7a4e79 !important;
+}
+
+/* Price text */
+.price {
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (min-width: 1200px) {
+    .property-card {
+        max-width: 270px;
+    }
+}
+
+@media (max-width: 768px) {
+    .property-card {
+        max-width: 100%;
+    }
+}

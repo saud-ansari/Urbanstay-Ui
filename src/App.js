@@ -7,12 +7,14 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import Properties from "./pages/Properties/Properties";
 import UserList from "./pages/Admin/User/UserList";
 import AdminLayout from "./pages/Admin/AdminLayout";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import UserForm from "./pages/Admin/User/UserForm";
 import { apiBaseImage } from "./constants/apiConstant";
-import Logo from "./assets/img/Logo-icon.png";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 import "./App.css";
 import Profile from "./pages/Landlord/Profile/Profile";
 import LordPanel from "./pages/Landlord/LandLordPanel/LordPanel";
@@ -43,6 +45,15 @@ const App = () => {
   const [showToast, setShowToast] = useState(false);
   const [Anav, setAnav] = useState(false);
   const [userIn, setuserIn] = useState(null);
+
+  useEffect(() => {
+    // Initialize AOS once when the app loads
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+      once: true,
+    });
+  }, []);
 
   const toggleShowToast = () => {
     setShowToast(!showToast);
@@ -100,11 +111,9 @@ const App = () => {
           {/* Centered brand logo for small screens */}
           <div className="d-lg-none m-1">
             <Navbar.Brand as={Link} to="/">
-              <img
-                src={Logo}
-                className="d-inline-block align-top logo-img"
-                alt="Company Logo"
-                style={{ height: "60px", width: "auto", display: "block" }} // Add width:auto and block
+              <Image
+                src="Logo-icon.png"                 
+                alt="Company Logo"                
               />
             </Navbar.Brand>
           </div>
@@ -126,6 +135,14 @@ const App = () => {
                 className="Nav-Text"
               >
                 Home
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/properties"
+                aria-label="properties"
+                className="Nav-Text"
+              >
+                Properties
               </Nav.Link>
               <Nav.Link
                 as={Link}
@@ -151,10 +168,10 @@ const App = () => {
               to="/"
               className="mx-auto d-none d-lg-block"
             >
-              <img
-                src={Logo} // Adjusted path
-                width="100%"
-                height="30"
+              <Image
+                src="Logo-icon.png" // Adjusted path
+                // width="100%"
+                // height="30"
                 className="d-inline-block align-top"
                 alt="Company Logo"
               />
@@ -320,6 +337,7 @@ const App = () => {
       <Routes>
         <Route index element={<Home />} />
         <Route path="home" element={<Home userIn={userIn} />} />
+        <Route path="properties" element={<Properties />} />
         <Route path="about" element={<AboutUs />} />
         <Route path="contact" element={<ContactUs />} />
         <Route

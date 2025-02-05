@@ -19,17 +19,17 @@ const AboutUs = () => {
         {/* Content Section */}
         <Container className="my-5">
           <Row className="align-items-center">
-            <Col lg={6} md={12}>
+            <Col data-aos="zoom-in-right" lg={6} md={12}>
               <h1 className='conetnt-section'>Our Agency Story</h1>
               <p className="subtitle">Check out our company story and work process</p>
 
               <p>At UrbanStay, we strive to provide a seamless and comfortable living experience for both short and long-term guests. Our modern, fully-furnished accommodations are designed to offer a perfect blend of comfort, style, and convenience. </p>
               <p>Whether you're traveling for work, leisure, or a long-term stay, UrbanStay offers flexible solutions in prime city locations, ensuring a home-like atmosphere with all the amenities you need. </p>
-              <button className='btn2'>More About Us</button>
+              {/* <button className='btn2'>More About Us</button> */}
             </Col>
 
             {/* Image Section */}
-            <Col lg={6} md={12}>
+            <Col data-aos="zoom-in-up" lg={6} md={12}>
               <img src={img2} alt='Our Agency Story' className="img-fluid about-img" />
             </Col>
           </Row>

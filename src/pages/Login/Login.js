@@ -58,7 +58,7 @@ const Login = ({ setNav , setTnav, setAnav , setnavLord,setIsBell}) => {
 
   return (
     <Container className="container mt-5 d-block justify-content-center">
-      <div className="card login-card">
+      <div data-aos="flip-left" className="card login-card">
         <div className="row g-0">
           <div className="col-md-6 left-side d-flex flex-column justify-content-center align-items-center">
             <div className="text-center">

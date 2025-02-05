@@ -69,7 +69,7 @@ const BookingDetails = ({ setNotiMssge }) => {
     <>
       <Container>
         <Card className="my-4">
-          <Card.Body>
+          <Card.Body data-aos="flip-right">
             <Card.Title><h2 className="text-center">Booking Details</h2></Card.Title>
             <Table bordered hover responsive="sm" size="lg" className="custom-table">
               {booking.length > 0 &&

@@ -24,7 +24,7 @@ const PopularProperties = ({ Searchproperty }) => {
 
   const [userIn] = UseSessionStorage("userInfo", "");
   const id = userIn?.id;
-  const userRoleLandLord = userIn.userRole === 'Landlords' || 'Super Admin';
+  const userRoleLandLord = userIn.userRole === 'Landlords' || userIn.userRole === 'Super Admin';
 
   const [booking, setBooking] = useState({
     propertyId: "",
@@ -49,7 +49,7 @@ const PopularProperties = ({ Searchproperty }) => {
         totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
       }));
     }
-  }, [propertyModal, id,userRoleLandLord]);
+  }, [propertyModal, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -118,7 +118,7 @@ const PopularProperties = ({ Searchproperty }) => {
       return;
     } else {
       axios
-        .post(`${apiBaseUrl}/Booking`, booking)
+        .post(`${apiBaseUrl}/Booking/fromemail=${properties.hostEmail}&toName=${properties.guestName}&toemail=${properties.guestEmail}`, booking)
         .then((res) => {
           navigate(`/tenants/mybooking`);
           toast.success("Booking Successful");

@@ -50,11 +50,7 @@ const PopularProperties = ({ Searchproperty }) => {
         totalPrice: propertyModal.pricePerNight, // Ensure the key matches your API response
       }));
     }
-<<<<<<< HEAD
-  }, [propertyModal, id]);
-=======
   }, [propertyModal, id, userRoleLandLord]);
->>>>>>> b41ed2e2c039a635b803a7c52c948e14e97c4dbb
 
   const handleChange = (e) => {
     const { name, value } = e.target;

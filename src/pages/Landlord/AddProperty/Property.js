@@ -33,6 +33,8 @@ const Property = () => {
     city: "",
     country: "",
     zipCode: "",
+    latitude: "",
+    longitude: "",
     propertyType: "",
     availabilityCalendar: "",
     pricePerNight: "",
@@ -71,6 +73,8 @@ const Property = () => {
       property.country &&
       property.state &&
       property.zipCode &&
+      property.latitude &&
+      property.longitude &&      
       property.propertyType &&
       property.availabilityCalendar &&
       property.pricePerNight &&
@@ -195,11 +199,21 @@ const Property = () => {
                 <Col xs={12} sm={12} md={6} lg={6}>
                 <Form.Group as={Col} controlId="formGridCity">
                   <Form.Label>Property Type</Form.Label>
-                  <Form.Control
-                    name="propertyType"
-                    value={property.propertyType}
-                    onChange={handleChange}
-                  />
+                  <Form.Select
+                      aria-label="Floating label select example"
+                      name="propertyType"
+                      value={property.propertyType}
+                      onChange={handleChange}
+                    >
+                      <option>Select Property Type</option>
+                      <option value="Studio">Studio</option>
+                      <option value="Apartment">Apartment</option>
+                      <option value="House">House</option>
+                      <option value="Villa">Villa</option>
+                      <option value="Cottage">Cottage</option>
+                      <option value="Bungalow">Bungalow</option>
+                      <option value="Farmhouse">Farmhouse</option>  
+                    </Form.Select>                  
                 </Form.Group>
                 </Col>
               </Row>
@@ -277,6 +291,30 @@ const Property = () => {
                 </Col>
               </Row>
               <Row className="mb-3">
+              <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>Latitude</Form.Label>
+                    <Form.Control
+                      placeholder="Enter Latitude"
+                      name="longitude"
+                      value={property.longitude}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col xs={6} sm={6} md={3} lg={3}>
+                  <Form.Group as={Col} controlId="formGridCity">
+                    <Form.Label>Longitude</Form.Label>
+                    <Form.Control
+                      placeholder="Enter Longitude"
+                      name="latitude"
+                      value={property.latitude}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-3">
                 <Col xs={6} sm={6} md={3} lg={3}>
                   <Form.Group as={Col} controlId="formGridCity">
                     <Form.Label>Price Per Night</Form.Label>
@@ -290,13 +328,17 @@ const Property = () => {
                 </Col>
                 <Col xs={6} sm={6} md={3} lg={3}>
                   <Form.Group as={Col} controlId="formGridCity">
-                    <Form.Label>Available Dates</Form.Label>
-                    <Form.Control
-                      placeholder="Enter Available Dates"
+                    <Form.Label>Available</Form.Label>
+                    <Form.Select
+                      aria-label="Floating label select example"
                       name="availabilityCalendar"
                       value={property.availabilityCalendar}
                       onChange={handleChange}
-                    />
+                    >
+                      <option>Choose ?</option>
+                      <option value="Available">Available</option>
+                      <option value="Not Available">Not Available</option>
+                    </Form.Select>
                   </Form.Group>
                 </Col>
                 <Col xs={6} sm={6} md={3} lg={3}>
@@ -342,12 +384,13 @@ const Property = () => {
                     />
                   </Form.Group>
                 </Col>
-
                 <Col xs={12} sm={12} md={6} lg={6}>
                   <Row className="mb-3">
                     <Col>
                       <Form.Group as={Col} controlId="formGridZip">
-                        <Form.Label>Upload Images</Form.Label>
+                        <Form.Label>Upload Images
+                        <span className="text-muted mx-5">Choose 5 images</span>
+                        </Form.Label>
                         <div className="d-flex align-items-center">
                           <Form.Control
                             placeholder="choose 5 Image Files"
@@ -360,9 +403,9 @@ const Property = () => {
                           <Button
                             disabled={uploading}
                             style={{
-                              backgroundColor: "#7952b3",
+                              backgroundColor: "#322965",
                               color: "White",
-                              borderColor: "#7952b3",
+                              borderColor: "#322965",
                               marginLeft: "10px",
                             }}
                             onClick={() => handlefileImage()}
@@ -454,9 +497,9 @@ const Property = () => {
               <Button
                 disabled={uploading}
                 style={{
-                  backgroundColor: "#7952b3",
+                  backgroundColor: "#322965",
                   color: "White",
-                  borderColor: "#7952b3", 
+                  borderColor: "#322965", 
                   width: "15%",                  
                 }}
                 onClick={handleSubmit}

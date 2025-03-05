@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import { Button, Container } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -11,6 +11,7 @@ import { UseSessionStorage } from "../../../constants/SessionStorage";
 const Profile = () => {
 
   const [user,setUser] = useState({
+    username : '',
     firstName : '',
     lastName : '',
     email : '',
@@ -52,7 +53,13 @@ const Profile = () => {
   return (
     <>
       <Container>
-        <div className="Form m-5">
+        <Card className="Form m-5">
+          <Card.Header>
+            <h3 ><span style={{"color":"#322965"}}>{user.username.toLocaleUpperCase()}'S </span> <span className="text-muted">profile</span></h3>
+          </Card.Header>
+          <Card.Body>
+            <Card.Title className="text-muted">Update your personal information here.</Card.Title>    
+          <hr />          
           <Form>
             <Row>
               <Col xs="6" sm="6" md="6" lg="6">
@@ -95,7 +102,7 @@ const Profile = () => {
                 marginTop: "20px", // Optional margin for spacing
               }}
             >
-              <Button style={{ backgroundColor: "#7952b3", color: "white" }} onClick={handleSubmit}>
+              <Button style={{ backgroundColor: "#322965",border: "none", color: "white" }} onClick={handleSubmit}>
                 Save
               </Button>
               <Button
@@ -103,13 +110,15 @@ const Profile = () => {
                   backgroundColor: "white",
                   color: "black",
                   borderColor: "grey",
+
                 }}
               >
                 Cancel
               </Button>
             </div>
           </Form>
-        </div>
+          </Card.Body>
+        </Card>
       </Container>
     </>
   );

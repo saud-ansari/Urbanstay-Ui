@@ -115,8 +115,8 @@ const UserList = () => {
                 <option value="">Filter by Role</option>
                 <option value="Super Admin">Super Admin</option>
                 <option value="Admin">Admin</option>
-                <option value="Landlords">Landlords</option>
-                <option value="Tenants">Tenants</option>
+                <option value="Landlord">Landlord</option>
+                <option value="Tenant">Tenant</option>
               </Form.Select>
             </Col>
             <Col md={2} className="text-end">
@@ -191,7 +191,7 @@ const UserList = () => {
                             ? "danger"
                             : item.role === "Admin"
                             ? "info"
-                            : item.role === "Landlords"
+                            : item.role === "Landlord"
                             ? "warning"
                             : "success"
                         }

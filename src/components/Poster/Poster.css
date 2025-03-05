@@ -36,7 +36,7 @@
 
 /* Title and subtitle responsiveness */
 .Carousel-title {
-  color: #8A5C8D;
+  color: #322965;
   font-size: 3rem;
   margin: 0;
   opacity: 1 !important;
@@ -75,12 +75,12 @@
 }
 
 .check-btn{
-  background-color: #8A5C8D !important;
+  background-color: #322965 !important;
   border: none !important;
 }
 
 .check-btn:hover {
-  background-color: peru !important;
+  background-color: #E84742 !important;
 }
 
 /* Mobile layout */
@@ -123,7 +123,7 @@
 
   .check-btn {
     margin-top: 25px;
-    background-color: #8A5C8D !important;
+    background-color: #322965 !important;
     border: white !important;
     height: 60px;
   }

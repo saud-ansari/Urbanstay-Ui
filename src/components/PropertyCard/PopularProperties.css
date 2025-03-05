@@ -34,7 +34,7 @@
 }
 
 .book-btn {
-    background-color: #8A5C8D !important;
+    background-color: #322965 !important;
     border: none !important;
     color: white;
     border: none;
@@ -44,7 +44,7 @@
 }
 
 .book-btn:hover {
-    background-color: #7a4e79 !important;
+    background-color: #E84742 !important;
 }
 
 /* Price text */

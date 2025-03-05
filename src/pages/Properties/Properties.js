@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { apiBaseImageProperty, apiBaseUrl } from "../../constants/apiConstant";
-import { Col, Row, Button, Card, Container, Modal, Form, Image, Table } from "react-bootstrap";
+import { Col, Row, Button, Card, Container, Modal, Form, Image, Table, Pagination } from "react-bootstrap";
 import { GeoAltFill } from "react-bootstrap-icons";
 import { UseSessionStorage } from "../../constants/SessionStorage";
 import "./PopularProperties.css";
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import MapEmbedded from "../../components/Map/MapEmbedded";
 import Amenities from "../../components/Amenities/Amenities";
+import Footer from "../../components/Footer/Footer";
 
 const Properties = ({ Searchproperty }) => {
   const navigate = useNavigate();
@@ -22,10 +23,17 @@ const Properties = ({ Searchproperty }) => {
   // const [totalPrice,setTotalPrice] = useState("");
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [filteredProperties, setFilteredProperties] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 8;
 
   const [userIn] = UseSessionStorage("userInfo", "");
+  console.log(userIn);
   const id = userIn?.id;
-  const userRoleLandLord = userIn.userRole === 'Landlords' || 'Super Admin';
+  const userRoleLandLord = userIn.userRole === 'Landlord' || userIn.userRole === 'Super Admin';
 
   const [booking, setBooking] = useState({
     propertyId: "",
@@ -39,6 +47,10 @@ const Properties = ({ Searchproperty }) => {
 
   const [daysDifference, setDaysDifference] = useState(null); // Add state for date difference
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
   // Update booking state when propertyId, guestId, or hostId changes
   useEffect(() => {
     if (propertyModal) {
@@ -51,6 +63,7 @@ const Properties = ({ Searchproperty }) => {
       }));
     }
   }, [propertyModal, id, userRoleLandLord]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -136,223 +149,303 @@ const Properties = ({ Searchproperty }) => {
     setValidated(true);
   };
 
-  return (
-    <Container className="popular-properties">
-      <h2 className="text-center">Popular Properties</h2>
-      <Row className="property-cards mt-4">
-        {properties.map((property) => (
-          <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
-            <Card data-aos="zoom-in-up" onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
-              <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
-              <Card.Body>
-                <Card.Title className="title-ellipsis">{property.title}</Card.Title>
-                <Row>
-                  <Col lg={6} xs={6} className="text-start">
-                    <Card.Text>
-                      <span className="text-muted">{property.propertyType}</span>
-                    </Card.Text>
-                  </Col>
-                  <Col lg={6} xs={6} className="text-end">
-                    <span className="text-muted">
-                      <GeoAltFill /> {property.city}
-                    </span>
-                  </Col>
-                </Row>
-                <h5 className="price">₨ {property.pricePerNight}</h5>
-                <Button variant="primary" className="book-btn" onClick={() => handleBook(property)}>
-                  Book Now
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+  //Filter
+  useEffect(() => {
+    if (Array.isArray(Searchproperty)) {
+      setProperties(Searchproperty);
+    } else {
+      axios
+        .get(`${apiBaseUrl}/Property`)
+        .then((res) => {
+          setProperties(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [Searchproperty]);
 
-      <Modal
-      data-aos="zoom-in-up"
-        show={modalShow}
-        onHide={handleClose}
-        fullscreen={true}
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title className="d-flex align-items-center text-danger">
-            <Image
-              src="Logo-icon.png"
-              alt="Urbanstay Logo"
+  useEffect(() => {
+    let filtered = properties;
+
+    if (searchQuery) {
+      filtered = filtered.filter(property =>
+        property.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (selectedCategory) {
+      filtered = filtered.filter(property => property.propertyType === selectedCategory);
+    }
+
+    if (selectedLocation) {
+      filtered = filtered.filter(property => property.city === selectedLocation);
+    }
+
+    setFilteredProperties(filtered);
+  }, [searchQuery, selectedCategory, selectedLocation, properties]);
+
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty);
+  const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+
+
+  return (
+    <>
+      <Container className="popular-properties">
+        {/* Filter and Search Section */}
+        <Row className="mb-4">
+          <Col md={4}>
+            <Form.Control
+              type="text"
+              placeholder="Search properties..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Col>
+          <Col md={4}>
+            <Form.Select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+              <option value="">Select Category</option>
+              {Array.from(new Set(properties.map(p => p.propertyType))).map((type, index) => (
+                <option key={index} value={type}>{type}</option>
+              ))}
+            </Form.Select>
+          </Col>
+          <Col md={4}>
+            <Form.Select value={selectedLocation} onChange={(e) => setSelectedLocation(e.target.value)}>
+              <option value="">Select Location</option>
+              {Array.from(new Set(properties.map(p => p.city))).map((city, index) => (
+                <option key={index} value={city}>{city}</option>
+              ))}
+            </Form.Select>
+          </Col>
+        </Row>
+
+        <Row className="property-cards mt-4">
+          {currentProperties.length > 0 ? (
+            currentProperties.map((property) => (
+              // {properties.map((property) => (
+              <Col xs={12} sm={6} md={4} lg={3} key={property.id} className="mb-4">
+                <Card data-aos="fade-up" onClick={() => handleBook(property)} className="property-card h-100" style={{ cursor: "pointer" }} >
+                  <Card.Img variant="top" src={`${apiBaseImageProperty}${property.imagePath}`} />
+                  <Card.Body>
+                    <Card.Title className="title-ellipsis">{property.title}</Card.Title>
+                    <Row>
+                      <Col lg={6} xs={6} className="text-start">
+                        <Card.Text>
+                          <span className="text-muted">{property.propertyType}</span>
+                        </Card.Text>
+                      </Col>
+                      <Col lg={6} xs={6} className="text-end">
+                        <span className="text-muted">
+                          <GeoAltFill /> {property.city}
+                        </span>
+                      </Col>
+                    </Row>
+                    <h5 className="price">₨ {property.pricePerNight}</h5>
+                    <Button variant="primary" className="book-btn" onClick={() => handleBook(property)}>
+                      Book Now
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (<p className="text-center w-100">No properties found.</p>)}
+        </Row>
+        <Pagination className="justify-content-center mt-4">
+          <Pagination.Prev disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} />
+          {Array.from({ length: totalPages }, (_, index) => (
+            <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => setCurrentPage(index + 1)}>
+              {index + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
+        </Pagination>
+
+        <Modal
+          data-aos="zoom-in"
+          show={modalShow}
+          onHide={handleClose}
+          fullscreen={true}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title className="d-flex align-items-center text-danger">
+              <Image
+                src="Logo-icon.png"
+                alt="Urbanstay Logo"
               // fluid
               // rounded
-            />
-            Book Now !!!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body data-aos="zoom-in-up">
-          {propertyModal && (
-            <Container>
-              <h3 className="title-ellipsis">{propertyModal.title}</h3>
-              <Row className="images-container">
-                <Col sm={12} md={6} lg={6} className="main-image-container">
-                  <img
-                    src={`${apiBaseImageProperty}${propertyModal.imagePath}`}
-                    alt=""
-                    className="main-image"
-                  />
-                </Col>
-                <Col xs={12} md={6} lg={6}>
-                  <Row className="small-images-row">
-                    {[2, 3, 4, 5].map((index) => {
-                      const imagePath = propertyModal[`imagePath${index}`];
-                      return (
-                        imagePath && (
-                          <Col key={index} xs={6} lg={6} className="small-image-container">
-                            <Image
-                              src={`${apiBaseImageProperty}${imagePath}`}
-                              alt=""
-                              className="small-image"
+              />
+              Book Now !!!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body data-aos="zoom-in-up">
+            {propertyModal && (
+              <Container>
+                <h3 className="title-ellipsis">{propertyModal.title}</h3>
+                <Row className="images-container">
+                  <Col sm={12} md={6} lg={6} className="main-image-container">
+                    <img
+                      src={`${apiBaseImageProperty}${propertyModal.imagePath}`}
+                      alt=""
+                      className="main-image"
+                    />
+                  </Col>
+                  <Col xs={12} md={6} lg={6}>
+                    <Row className="small-images-row">
+                      {[2, 3, 4, 5].map((index) => {
+                        const imagePath = propertyModal[`imagePath${index}`];
+                        return (
+                          imagePath && (
+                            <Col key={index} xs={6} lg={6} className="small-image-container">
+                              <Image
+                                src={`${apiBaseImageProperty}${imagePath}`}
+                                alt=""
+                                className="small-image"
+                              />
+                            </Col>
+                          )
+                        );
+                      })}
+                    </Row>
+                  </Col>
+                </Row>
+
+                <Row className="my-3">
+                  <Col xs={12} md={6}>
+                    <Table className="sm">
+                      <tbody>
+                        <tr>
+                          <td colSpan={2}>
+                            <strong>Description:</strong>{" "}
+                            <span className="text-muted">{propertyModal.description}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={2}>
+                            <strong>Address:</strong>{" "}
+                            <span className="text-muted">{propertyModal.address}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <strong>City:</strong>{" "}
+                            <span className="text-muted">{propertyModal.city}</span>
+                          </td>
+                          <td>
+                            <strong>Code:</strong>{" "}
+                            <span className="text-muted">{propertyModal.zipCode}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <strong>Country:</strong>{" "}
+                            <span className="text-muted">{propertyModal.country}</span>
+                          </td>
+                          <td>
+                            <strong>Property Type:</strong>{" "}
+                            <span className="text-muted">{propertyModal.propertyType}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                    <Amenities />
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <Card className="booking-card mx-auto p-3">
+                      <Card.Body>
+
+                        <h5 className="price">
+                          ₹{propertyModal.pricePerNight}
+                          <span className="night">/ night</span>
+                        </h5>
+
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                          <Row className="mt-3">
+                            <Col md={6} xs={12}>
+                              <Form.Group controlId="checkin-date">
+                                <Form.Label>Check-in</Form.Label>
+                                <Form.Control
+                                  required
+                                  type="date"
+                                  name="checkInDate"
+                                  value={booking.checkInDate}
+                                  onChange={handleChange}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                  Enter Check-In Date
+                                </Form.Control.Feedback>
+                              </Form.Group>
+                            </Col>
+                            <Col md={6} xs={12}>
+                              <Form.Group controlId="checkout-date">
+                                <Form.Label>Check-out</Form.Label>
+                                <Form.Control
+                                  required
+                                  type="date"
+                                  name="checkOutDate"
+                                  value={booking.checkOutDate}
+                                  onChange={handleChange}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                  Enter Check-Out Date
+                                </Form.Control.Feedback>
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                          <Form.Group className="mt-3" controlId="guests">
+                            <Form.Label>Guests</Form.Label>
+                            <Form.Control
+                              required
+                              type="number"
+                              placeholder="Number of Guests"
+                              name="numberofGuests"
+                              value={booking.numberofGuests}
+                              onChange={handleChange}
                             />
-                          </Col>
-                        )
-                      );
-                    })}
-                  </Row>
-                </Col>
-              </Row>
-
-              <Row className="my-3">
-                <Col xs={12} md={6}>
-                  <Table className="sm">
-                    <tbody>
-                      <tr>
-                        <td colSpan={2}>
-                          <strong>Description:</strong>{" "}
-                          <span className="text-muted">{propertyModal.description}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2}>
-                          <strong>Address:</strong>{" "}
-                          <span className="text-muted">{propertyModal.address}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <strong>City:</strong>{" "}
-                          <span className="text-muted">{propertyModal.city}</span>
-                        </td>
-                        <td>
-                          <strong>Code:</strong>{" "}
-                          <span className="text-muted">{propertyModal.zipCode}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <strong>Country:</strong>{" "}
-                          <span className="text-muted">{propertyModal.country}</span>
-                        </td>
-                        <td>
-                          <strong>Property Type:</strong>{" "}
-                          <span className="text-muted">{propertyModal.propertyType}</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                  <Amenities />
-                </Col>
-                <Col xs={12} md={6}>
-                  <Card className="booking-card mx-auto p-3">
-                    <Card.Body>
-
-                      <h5 className="price">
-                        ₹{propertyModal.pricePerNight}
-                        <span className="night">/ night</span>
-                      </h5>
-
-                      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                        <Row className="mt-3">
-                          <Col md={6} xs={12}>
-                            <Form.Group controlId="checkin-date">
-                              <Form.Label>Check-in</Form.Label>
-                              <Form.Control
-                                required
-                                type="date"
-                                name="checkInDate"
-                                value={booking.checkInDate}
-                                onChange={handleChange}
-                              />
-                              <Form.Control.Feedback type="invalid">
-                                Enter Check-In Date
-                              </Form.Control.Feedback>
-                            </Form.Group>
-                          </Col>
-                          <Col md={6} xs={12}>
-                            <Form.Group controlId="checkout-date">
-                              <Form.Label>Check-out</Form.Label>
-                              <Form.Control
-                                required
-                                type="date"
-                                name="checkOutDate"
-                                value={booking.checkOutDate}
-                                onChange={handleChange}
-                              />
-                              <Form.Control.Feedback type="invalid">
-                                Enter Check-Out Date
-                              </Form.Control.Feedback>
-                            </Form.Group>
-                          </Col>
-                        </Row>
-                        <Form.Group className="mt-3" controlId="guests">
-                          <Form.Label>Guests</Form.Label>
-                          <Form.Control
-                            required
-                            type="number"
-                            placeholder="Number of Guests"
-                            name="numberofGuests"
-                            value={booking.numberofGuests}
-                            onChange={handleChange}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            Enter Number of Guests
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Row className="mt-3">
-                          <Col>
-                            <Form.Group controlId="total-price">
-                              <Form.Label>Stay Duration</Form.Label>
-                              <Form.Control
-                                type="text"
-                                value={daysDifference}
-                                readOnly
-                              />
-                            </Form.Group>
-                          </Col>
-                          <Col>
-                            <Form.Group controlId="total-price">
-                              <Form.Label>Total Price</Form.Label>
-                              <Form.Control
-                                type="text"
-                                value={booking.totalPrice}
-                                readOnly
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
-                        <div className="my-3 text-center text-muted">
-                          You won't be charged yet
-                        </div>
-                        <Button
-                          type="submit"
-                          className="reserve-btn my-1 w-100"
-                          variant="danger"
-                          size="lg"
-                          disabled={userRoleLandLord}
-                        >
-                          Reserve
-                        </Button>
-                      </Form>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
+                            <Form.Control.Feedback type="invalid">
+                              Enter Number of Guests
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                          <Row className="mt-3">
+                            <Col>
+                              <Form.Group controlId="total-price">
+                                <Form.Label>Stay Duration</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  value={daysDifference}
+                                  readOnly
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col>
+                              <Form.Group controlId="total-price">
+                                <Form.Label>Total Price</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  value={booking.totalPrice}
+                                  readOnly
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                          <div className="my-3 text-center text-muted">
+                            You won't be charged yet
+                          </div>
+                          <Button
+                            type="submit"
+                            className="reserve-btn my-1 w-100"
+                            variant="danger"
+                            size="lg"
+                          // disabled={userRoleLandLord}
+                          >
+                            Reserve
+                          </Button>
+                        </Form>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
               <Row>
                 <Card className="booking-card mx-auto p-1">
                   <Card.Header className="d-flex align-items-center">
@@ -370,11 +463,13 @@ const Properties = ({ Searchproperty }) => {
                   </Card.Body>
                 </Card>
               </Row>
-            </Container>
-          )}
-        </Modal.Body>
-      </Modal>
-    </Container>
+              </Container>
+            )}
+          </Modal.Body>
+        </Modal>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

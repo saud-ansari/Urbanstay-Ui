@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Button, CloseButton, Container, Image, Nav, Navbar } from "react-bootstrap";
 import { Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -33,18 +34,20 @@ import { UseSessionStorage } from "./constants/SessionStorage";
 import Testingpage from "./testingpages/Testingpage";
 
 const App = () => {
-  const [user] = UseSessionStorage("userInfo",'');
+  const [user] = UseSessionStorage("userInfo", '');
   const [nav, setNav] = useState(false);
   const [imageProfile, setImageProfile] = useState(null);
   const [navLord, setnavLord] = useState(false);
   const navigate = useNavigate();
   const [id, setId] = useState(null);
   const [Tnav, setTnav] = useState(false);
-  const [isBell,setIsBell] = useState(false);
+  const [isBell, setIsBell] = useState(false);
   const [notiMssge, setNotiMssge] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [Anav, setAnav] = useState(false);
   const [userIn, setuserIn] = useState(null);
+  const Pagelocation = useLocation();
+
 
   useEffect(() => {
     // Initialize AOS once when the app loads
@@ -57,11 +60,11 @@ const App = () => {
 
   const toggleShowToast = () => {
     setShowToast(!showToast);
-      if (showToast) {
+    if (showToast) {
       setNotiMssge(null);
     }
   };
-  
+
 
   useEffect(() => {
     if (user) {
@@ -80,14 +83,14 @@ const App = () => {
       setNav(false);
       setImageProfile(null);
     }
-  }, [user,id]);
+  }, [user, id]);
 
   useEffect(() => {
     if (user) {
       const UserID = user.userRole;
-      if (UserID === "Landlords") {
+      if (UserID === "Landlord") {
         setnavLord(true);
-      } else if (UserID === "Tenants") {
+      } else if (UserID === "Tenant") {
         setTnav(true);
         setIsBell(true);
       } else if (UserID === "Super Admin") setAnav(true);
@@ -112,8 +115,8 @@ const App = () => {
           <div className="d-lg-none m-1">
             <Navbar.Brand as={Link} to="/">
               <Image
-                src="Logo-icon.png"                 
-                alt="Company Logo"                
+                src="/Logo-icon.png"
+                alt="Urbanstay"
               />
             </Navbar.Brand>
           </div>
@@ -132,7 +135,7 @@ const App = () => {
                 as={Link}
                 to="/home"
                 aria-label="Home"
-                className="Nav-Text"
+                className={`Nav-Text ${Pagelocation.pathname === "/home" ? "active" : ""}`}
               >
                 Home
               </Nav.Link>
@@ -140,7 +143,7 @@ const App = () => {
                 as={Link}
                 to="/properties"
                 aria-label="properties"
-                className="Nav-Text"
+                className={`Nav-Text ${Pagelocation.pathname === "/properties" ? "active" : ""}`}
               >
                 Properties
               </Nav.Link>
@@ -148,7 +151,7 @@ const App = () => {
                 as={Link}
                 to="/about"
                 aria-label="About Us"
-                className="Nav-Text"
+                className={`Nav-Text ${Pagelocation.pathname === "/about" ? "active" : ""}`}
               >
                 About Us
               </Nav.Link>
@@ -156,7 +159,7 @@ const App = () => {
                 as={Link}
                 to="/contact"
                 aria-label="Contact Us"
-                className="Nav-Text"
+                className={`Nav-Text ${Pagelocation.pathname === "/contact" ? "active" : ""}`}
               >
                 Contact Us
               </Nav.Link>
@@ -169,11 +172,11 @@ const App = () => {
               className="mx-auto d-none d-lg-block"
             >
               <Image
-                src="Logo-icon.png" // Adjusted path
+                src="/Logo-icon.png" // Adjusted path
                 // width="100%"
                 // height="30"
                 className="d-inline-block align-top"
-                alt="Company Logo"
+                alt="Urbanstay"
               />
             </Navbar.Brand>
 
@@ -189,54 +192,15 @@ const App = () => {
                       Add Listing
                     </Button>
                   )}
-
-                  {isBell && (
-                    <>
-                      <div
-                        style={{
-                          position: "relative",
-                          display: "inline-block",
-                          cursor: "pointer",
-                        }}
-                        onClick={toggleShowToast}
-                      >
-                        <BellFill size={24} className="mx-5 my-3" />
-                        {notiMssge && (
-                          <span
-                          style={{
-                            position: "absolute",
-                            top: 10,
-                            right: 35,
-                            width: 10,
-                            height: 10,
-                            backgroundColor: "red",
-                            borderRadius: "50%",
-                          }}
-                        />
-                        )}
-                      </div>
-                      <Toast
-                        show={showToast}
-                        onClose={toggleShowToast}
-                        position="bottom-start"
-                        className="mt-3"
-                        style={{
-                          zIndex: 1050,
-                          position: "absolute",
-                          marginLeft: "-100px",
-                        }}
-                      >
-                        <Toast.Body>
-                          {notiMssge ? notiMssge : "No message here"}
-                          <CloseButton
-                            onClick={toggleShowToast}
-                            className="float-end"
-                          />
-                        </Toast.Body>
-                      </Toast>
-                    </>
+                  {Tnav && (
+                    <Button
+                      className="NavbarButton"
+                      style={{ cursor: "pointer", margin: "15px 15px" }}
+                      onClick={() => navigate(`tenants/mybooking`)}
+                    >
+                      My Booking
+                    </Button>
                   )}
-
                   <Dropdown>
                     <Dropdown.Toggle variant="light" id="dropdown-basic">
                       <Image
@@ -315,7 +279,7 @@ const App = () => {
                     as={Link}
                     to="/login"
                     aria-label="Login"
-                    className="Nav-Text"
+                    className={`Nav-Text ${Pagelocation.pathname === "/login" ? "active" : ""}`}
                   >
                     Login
                   </Nav.Link>
@@ -323,7 +287,7 @@ const App = () => {
                     as={Link}
                     to="/register"
                     aria-label="Register"
-                    className="Nav-Text"
+                    className={`Nav-Text ${Pagelocation.pathname === "/register" ? "active" : ""}`}
                   >
                     Register
                   </Nav.Link>
@@ -384,13 +348,10 @@ const App = () => {
           <Route path="users" element={<UserList />} />
           <Route path="user/:id?" element={<UserForm />} />
         </Route>
-        
+
         {/* Testing Pages */}
-       <Route path="/test" element={<Testingpage/>}/> 
-      </Routes>
-
-      
-
+        <Route path="/test" element={<Testingpage />} />
+      </Routes>     
       <ToastContainer theme="colored" />
     </>
   );

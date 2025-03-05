@@ -34,20 +34,47 @@ const Dashboard = () => {
       });
   };
 
+  const landlordCount = () => {
+    axios.get('http://localhost:57614/LandLordCount')
+      .then((response) => {
+        if (response.data) {
+          setTotalLandlords(response.data)
+        }
+      }
+      )
+      .catch((error) => {
+        console.error('Error fetching data: ', error);
+      });
+  };
+
+  const propertyCount = () => {
+    axios.get('http://localhost:57614/PropertyCount')
+      .then((response) => {
+        if (response.data) {
+          setTotalProperties(response.data)
+        }
+      }
+      )
+      .catch((error) => {
+        console.error('Error fetching data: ', error);
+        });
+  };
+
   useEffect(() => {
     tenantCount();
+    landlordCount();
+    propertyCount();
   }, [totalTenants, totalLandlords, totalProperties])
 
   return (
     <>
-
       <h4 className='mt-2 float-end'>
-        <Badge bg='light' style={{ color: 'rgb(121, 82, 179)' }}>
+        <Badge bg='light' style={{ color: '#322965' }}>
           <GraphUpArrow className='me-1' /> Dashboard
         </Badge>
       </h4>
       <h3 className='my-3'>Welcome,
-        <span className='text-capitalize fs-1 fw-bolder ' style={{ color: 'rgb(121, 82, 179)' }}>
+        <span className='text-capitalize fs-1 fw-bolder ' style={{ color: '#322965' }}>
           {user.userName}
         </span>
       </h3>
@@ -68,7 +95,7 @@ const Dashboard = () => {
             <Card.Body className="text-center">
               <Card.Title>Total Registerd Landlords</Card.Title>
               <Card.Text>
-                <h1>10</h1>
+                <h1>{totalLandlords}</h1>
               </Card.Text>
             </Card.Body>
           </Card>
@@ -78,7 +105,7 @@ const Dashboard = () => {
             <Card.Body className="text-center">
               <Card.Title>Total Registerd Properties</Card.Title>
               <Card.Text>
-                <h1>30</h1>
+                <h1>{totalProperties}</h1>
               </Card.Text>
             </Card.Body>
           </Card>

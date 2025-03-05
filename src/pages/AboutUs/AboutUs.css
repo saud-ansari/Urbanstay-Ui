@@ -55,7 +55,7 @@
 
 /* Button styling */
 .btn2 {
-    background-color: #604362;
+    background-color: #E84742;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -64,7 +64,7 @@
 }
 
 .btn2:hover {
-    background-color: #218838;
+    background-color: #322965;
 }
 
 /* Responsive image */

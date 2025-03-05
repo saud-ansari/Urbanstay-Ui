@@ -5,8 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { toast } from "react-toastify";
 import { apiBaseUrl } from "../../constants/apiConstant";
+import Footer from "../../components/Footer/Footer";
 
-const Login = ({ setNav , setTnav, setAnav , setnavLord,setIsBell}) => {
+const Login = ({ setNav, setTnav, setAnav, setnavLord, setIsBell }) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [message, setMessage] = useState();
   const navigate = useNavigate();
@@ -33,11 +34,11 @@ const Login = ({ setNav , setTnav, setAnav , setnavLord,setIsBell}) => {
             if (res.data.userRole === "Super Admin") {
               setAnav(true);
               navigate(`/admin/dashboard`);
-            } else if (res.data.userRole === "Landlords") {
+            } else if (res.data.userRole === "Landlord") {
               setnavLord(true);
               setIsBell(false);
               navigate(`/landlord/profile`);
-            } else if(res.data.userRole === "Tenants"){
+            } else if (res.data.userRole === "Tenant") {
               setTnav(true);
               setIsBell(true);
               navigate(`/tenants/profile`);
@@ -57,62 +58,65 @@ const Login = ({ setNav , setTnav, setAnav , setnavLord,setIsBell}) => {
   };
 
   return (
-    <Container className="container mt-5 d-block justify-content-center">
-      <div data-aos="flip-left" className="card login-card">
-        <div className="row g-0">
-          <div className="col-md-6 left-side d-flex flex-column justify-content-center align-items-center">
-            <div className="text-center">
-              <h2 className="welcome-title">Hello, welcome to!</h2>
-              <h2 className="welcome-title">Urbanstay</h2>
+    <>
+      <Container className="container my-5 d-block justify-content-center">
+        <div data-aos="flip-left" className="card login-card">
+          <div className="row g-0">
+            <div className="col-md-6 left-side d-flex flex-column justify-content-center align-items-center">
+              <div className="text-center">
+                <h2 className="welcome-title">Hello, welcome to!</h2>
+                <h2 className="welcome-title">Urbanstay</h2>
+              </div>
             </div>
-          </div>
-          <div className="col-md-6 right-side">
-            <div className="card-body p-4">
-              <h5 className="card-title">LogIn</h5>
-              <form onSubmit={handleSubmit} noValidate>
-                {message && (
-                  <Alert variant="danger" className="my-2">
-                    {message}
-                  </Alert>
-                )}
-                <div className="mb-3">
-                  <label>Username</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    value={user.username}
-                    onChange={handleChange}
-                    maxLength={20}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={user.password}
-                    onChange={handleChange}
-                    maxLength={20}
-                  />
-                </div>
-                <div className="d-flex justify-content-between align-items-center">
-                  <button type="submit" className="btn btn-primary">
-                    Login
-                  </button>
-                </div>
-                <div className="text-center mt-3">
-                  <Link to={`/register`} className="sign-in-link">
-                    Already have an account? Sign in
-                  </Link>
-                </div>
-              </form>
+            <div className="col-md-6 right-side">
+              <div className="card-body p-4">
+                <h5 className="card-title">LogIn</h5>
+                <form onSubmit={handleSubmit} noValidate>
+                  {message && (
+                    <Alert variant="danger" className="my-2">
+                      {message}
+                    </Alert>
+                  )}
+                  <div className="mb-3">
+                    <label>Username</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="username"
+                      value={user.username}
+                      onChange={handleChange}
+                      maxLength={20}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      name="password"
+                      value={user.password}
+                      onChange={handleChange}
+                      maxLength={20}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <button type="submit" className="btn btn-primary">
+                      Login
+                    </button>
+                  </div>
+                  <div className="text-center mt-3">
+                    <Link to={`/register`} className="sign-in-link">
+                      Already have an account? Sign in
+                    </Link>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+      <Footer />
+    </>
   );
 };
 export default Login;

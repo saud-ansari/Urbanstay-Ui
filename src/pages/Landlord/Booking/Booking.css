@@ -23,10 +23,21 @@
   .reject-button {
     border-color: red;
     color: red;
+
+  }
+
+  .reject-button:hover {
+    background-color: darkred;
+    color: white;
   }
   
   .confirm-button {
     border-color: green;
     color: green;
+  }
+
+  .confirm-button:hover {
+    background-color: darkgreen;
+    color: white;
   }
   

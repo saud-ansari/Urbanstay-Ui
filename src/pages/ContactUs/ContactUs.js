@@ -5,6 +5,7 @@ import "./ContactUs.css";
 import axios from 'axios';
 import { apiBaseUrl } from '../../constants/apiConstant';
 import { toast } from 'react-toastify';
+import Footer from '../../components/Footer/Footer';
 
 const ContactUs = () => {
 
@@ -163,7 +164,9 @@ const ContactUs = () => {
 
           </Col>
         </Row>
+
       </Container>
+      <Footer/>
     </>
   )
 }

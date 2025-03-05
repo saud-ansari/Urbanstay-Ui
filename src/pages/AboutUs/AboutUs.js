@@ -3,6 +3,7 @@ import img from '../../assets/img/banner.png';  // Update this path to your bann
 import img2 from '../../assets/img/list/p-4.png';  // Update this path to your content image
 import './AboutUs.css';
 import { Col, Container, Row } from 'react-bootstrap';
+import Footer from '../../components/Footer/Footer';
 
 const AboutUs = () => {
   return (
@@ -35,6 +36,7 @@ const AboutUs = () => {
           </Row>
         </Container>
       </section>
+       <Footer/>
     </>
   );
 };

@@ -1,10 +1,10 @@
-import React from 'react'
-import CardWithEllipsis from './CardWithEllipsis'
+import React from 'react' 
+import Dashboard from './Dashboard'
 
 const Testingpage = () => {
   return (
     <>
-    <CardWithEllipsis/>
+    <Dashboard />
     </>
   )
 }

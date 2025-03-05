@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import './Home.css';
 import ReviewSliderComp from "../../components/ReviewSlider/ReviewSliderComp";
 import PopularProperties from "../../components/PropertyCard/PopularProperties";
-
+import Footer from "../../components/Footer/Footer";
 
 const Home = ({ userIn }) => {
 
@@ -19,8 +19,9 @@ const Home = ({ userIn }) => {
       <Poster  Searchproperty={Searchproperty} setSearchProperty={setSearchProperty}/>
       <Container className="mt-5">
         <PopularProperties userIn={userIn} Searchproperty={Searchproperty}/>
-        <ReviewSliderComp />
+        <ReviewSliderComp />       
       </Container>
+      <Footer/>
     </>
   );
 };

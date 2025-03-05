@@ -53,7 +53,6 @@ const PopularProperties = ({ Searchproperty }) => {
     }
   }, [propertyModal, id, userRoleLandLord]);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBooking((prevBooking) => ({
